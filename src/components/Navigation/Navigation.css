@@ -1,0 +1,14 @@
+.navigation {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  font-weight: 500;
+  line-height: 16px;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 410px) {
+  .navigation {
+    font-size: 10px;
+  }
+}

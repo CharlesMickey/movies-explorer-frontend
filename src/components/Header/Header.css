@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  align-items: center;
+  min-height: 74px;
+  background-color: rgba(250, 250, 250, 1);
+  padding: 0 70px;
+}
+
+.header-color {
+  background-color: rgba(221, 222, 227, 1);
+}
+
+.header__logo {
+  object-fit: cover;
+  cursor: pointer;
+  height: 38px;
+  width: 38px;
+}
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .header {
+    padding: 0 14px;
+  }
+}
