@@ -45,7 +45,7 @@
   min-width: 54px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 810px) {
   .navigation__main_visible {
     display: none;
   }
@@ -57,7 +57,7 @@
   }
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 500px) {
   .navigation__main-burger {
     width: 40px;
     height: 43px;

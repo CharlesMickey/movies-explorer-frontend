@@ -18,13 +18,13 @@
   max-width: 730px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 810px) {
   .promo {
     min-height: 784px;
   }
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 500px) {
   .promo {
     min-height: 570px;
     background-size: 248px 248px;

@@ -10,7 +10,7 @@
   border-radius: 3px;
 }
 
-@media screen and (max-width: 410px) {
+@media screen and (max-width: 500px) {
   .navigation__auth-signin {
     margin-left: 14px;
     padding: 5px 12px;
