@@ -1,6 +1,7 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/fonts.css);
 @import url(./styles/link.css);
+@import url(./styles/main-title.css);
 @import url(./components/App/App.css);
 @import url(./components/Header/Header.css);
 @import url(./components/Navigation/Navigation.css);
@@ -10,3 +11,5 @@
 @import url(./components/Main/NavTab/NavTab.css);
 @import url(./components/Main/AboutProject/AboutProject.css);
 @import url(./components/Main/Techs/Techs.css);
+@import url(./components/Main/AboutMe/AboutMe.css);
+@import url(./components/Footer/Footer.css);

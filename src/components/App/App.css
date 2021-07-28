@@ -1,5 +1,4 @@
 .app {
-  /* min-width: 100px; */
   margin: auto;
   font-family: "Inter", Arial, sans-serif;
   font-weight: 400;
@@ -7,17 +6,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
+  background-color: rgba(250, 250, 250, 1);
   position: relative;
   min-height: 100vh;
-}
-
-@media screen and (max-width: 810px) {
-  .app {
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .app {
-  }
 }

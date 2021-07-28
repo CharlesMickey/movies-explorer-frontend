@@ -16,7 +16,7 @@
   padding-bottom: 23px;
 }
 
-.techs__texts {
+.techs__text {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -29,7 +29,7 @@
   line-height: 58px;
 }
 
-.techs__text {
+.techs__text-item {
   margin: 0;
   font-size: 14px;
   line-height: 20px;
@@ -72,7 +72,7 @@
     margin-bottom: 22px;
   }
 
-  .techs__text {
+  .techs__text-item {
     font-size: 12px;
     line-height: 18px;
   }
@@ -122,17 +122,15 @@
     line-height: 36px;
   }
 
-  .techs__text {
+  .techs__text-item {
     font-size: 11px;
     line-height: 16px;
     max-width: 292px;
   }
+}
 
-  .techs-list__item {
-    font-size: 12px;
-    line-height: 15px;
-    margin-left: 0;
-    height: 57px;
-    width: 84px;
+@media screen and (max-width: 359px) {
+  .techs-list {
+    grid-template-columns: repeat(2, 84px);
   }
 }
