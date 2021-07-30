@@ -13,3 +13,5 @@
 @import url(./components/Main/Techs/Techs.css);
 @import url(./components/Main/AboutMe/AboutMe.css);
 @import url(./components/Footer/Footer.css);
+@import url(./components/SearchForm/SearchForm.css);
+@import url(./components/FilterCheckbox/FilterCheckbox.css);

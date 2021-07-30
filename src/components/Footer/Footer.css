@@ -41,6 +41,7 @@
 
 @media screen and (max-width: 810px) {
   .footer {
+    background-color: rgba(250, 250, 250, 1);
     padding-left: 30px;
     padding-right: 30px;
   }

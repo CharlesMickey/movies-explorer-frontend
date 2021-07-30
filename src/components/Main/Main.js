@@ -9,9 +9,10 @@ import Promo from "./Promo/Promo";
 import Techs from "./Techs/Techs";
 
 function Main() {
+  const headerColor = "header-color";
   return (
     <>
-      <Header />
+      <Header headerColor={headerColor} />
       <Promo />
       <NavTab />
       <AboutProject />
