@@ -46,41 +46,6 @@ function AboutMe() {
           alt="Фотография студента"
         />
       </section>
-      <section className="about-me__portfolio">
-        <h3 className="about-me__portfolio-title">Портфолио</h3>
-        <ul className="about-me__portfolio-list">
-          <li className="about-me__portfolio-item link">
-            <a
-              href="https://github.com/CharlesMickey/how-to-learn"
-              rel="noopener noreferrer"
-              className="about-me__portfolio-item-link link"
-              target="_blank"
-            >
-              Статичный сайт
-            </a>
-          </li>
-          <li className="about-me__portfolio-item link">
-            <a
-              href="https://github.com/CharlesMickey/russian-travel"
-              rel="noopener noreferrer"
-              className="link"
-              target="_blank"
-            >
-              Адаптивный сайт
-            </a>
-          </li>
-          <li className="about-me__portfolio-item link">
-            <a
-              href="https://github.com/CharlesMickey/react-mesto-api-full"
-              rel="noopener noreferrer"
-              className="link"
-              target="_blank"
-            >
-              Одностраничное приложение
-            </a>
-          </li>
-        </ul>
-      </section>
     </section>
   );
 }

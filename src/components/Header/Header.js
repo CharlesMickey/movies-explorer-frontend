@@ -12,7 +12,7 @@ function Header( {headerColor} ) {
         <img
           className="header__logo"
           src={logo}
-          alt="Логотип названия сайта Место"
+          alt="Логотип названия сайта Movies"
         />
       </Link>
       <Navigation isLoggedIn={isLoggedIn} />

@@ -73,4 +73,8 @@
     border-bottom-right-radius: 0;
     border-left: none;
   }
+
+  .visible-checkbox {
+    margin-right: 13px;
+  }
 }

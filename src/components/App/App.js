@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
+import NotFound from "../NotFound/NotFound";
 import SavedMovies from "../SavedMovies/SavedMovies";
 
 function App() {
@@ -15,8 +16,11 @@ function App() {
         <Route path="/movies">
           <Movies />
         </Route>
-        <Route to="/movies-saved">
+        <Route path="/saved-movies">
           <SavedMovies />
+        </Route>
+        <Route path="*">
+          <NotFound />
         </Route>
       </Switch>
     </div>
