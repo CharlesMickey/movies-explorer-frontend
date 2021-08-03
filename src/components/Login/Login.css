@@ -1,0 +1,9 @@
+.auth__submit_marg_sinin {
+  margin-top: 197.8px;
+}
+
+@media screen and (max-width: 500px) {
+  .auth__submit_marg_sinin {
+    margin-top: 285.8px;
+  }
+}

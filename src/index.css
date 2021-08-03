@@ -14,6 +14,12 @@
 @import url(./components/Main/AboutMe/AboutMe.css);
 @import url(./components/Main/Portfolio/Portfolio.css);
 @import url(./components/Footer/Footer.css);
+@import url(./components/Movies/Movies.css);
+@import url(./components/SavedMovies/SavedMovies.css);
 @import url(./components/SearchForm/SearchForm.css);
 @import url(./components/FilterCheckbox/FilterCheckbox.css);
 @import url(./components/NotFound/NotFound.css);
+@import url(./components/Profile/Profile.css);
+@import url(./components/AuthForm/AuthForm.css);
+@import url(./components/Login/Login.css);
+
