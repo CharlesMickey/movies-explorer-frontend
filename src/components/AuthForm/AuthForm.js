@@ -3,8 +3,15 @@ import { Link } from "react-router-dom";
 
 import logo from "../../images/imgs_svg/logo.svg";
 
-function AuthForm( {greeting, authLink, linkPath, signText, buttonName, signUp, margin}) {
-
+function AuthForm({
+  greeting,
+  authLink,
+  linkPath,
+  signText,
+  buttonName,
+  signUp,
+  margin,
+}) {
   return (
     <section className="auth">
       <img className="auth__logo" src={logo} alt="Логотип сайта Movies" />

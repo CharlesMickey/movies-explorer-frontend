@@ -39,10 +39,18 @@ function Profile() {
               <span className="" id="password-error"></span>
             </label>
           </fieldset>
-          <button type="submit" value="Отправить на сервер" className="profile__button">
+          <button
+            type="submit"
+            value="Отправить на сервер"
+            className="profile__button"
+          >
             Редактировать
           </button>
-          <button className="profile__button-out" value="Выйти из аккаунта" type="button">
+          <button
+            className="profile__button-out"
+            value="Выйти из аккаунта"
+            type="button"
+          >
             Выйти из аккаунта
           </button>
         </form>

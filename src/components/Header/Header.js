@@ -5,7 +5,7 @@ import Navigation from "../Navigation/Navigation";
 
 const isLoggedIn = true;
 
-function Header( {headerColor} ) {
+function Header({ headerColor }) {
   return (
     <header className={`header ${headerColor || ""}`}>
       <Link to="/">
