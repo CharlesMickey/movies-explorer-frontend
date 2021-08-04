@@ -27,7 +27,7 @@
 
 .navigation__main-account {
   border-radius: 50px;
-  border: 2px solid rgba(170, 170, 170, 1);
+  border: 2px solid rgba(170, 170, 170, 0.2);
 }
 
 .navigation__main_position {

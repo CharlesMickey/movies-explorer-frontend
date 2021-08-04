@@ -5,10 +5,10 @@ import Header from "../Header/Header";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies() {
+function SavedMovies({ handelOpenBurger }) {
   return (
     <>
-      <Header />
+      <Header handelOpenBurger={handelOpenBurger} />
       <section className="saved-movies">
         <SearchForm />
         <Preloader />

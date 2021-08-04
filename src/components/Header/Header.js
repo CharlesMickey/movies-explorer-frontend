@@ -5,7 +5,7 @@ import Navigation from "../Navigation/Navigation";
 
 const isLoggedIn = true;
 
-function Header({ headerColor }) {
+function Header({ handelOpenBurger, headerColor }) {
   return (
     <header className={`header ${headerColor || ""}`}>
       <Link to="/">
@@ -15,7 +15,7 @@ function Header({ headerColor }) {
           alt="Логотип названия сайта Movies"
         />
       </Link>
-      <Navigation isLoggedIn={isLoggedIn} />
+      <Navigation handelOpenBurger={handelOpenBurger} isLoggedIn={isLoggedIn} />
     </header>
   );
 }

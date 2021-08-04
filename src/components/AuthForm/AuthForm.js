@@ -14,7 +14,9 @@ function AuthForm({
 }) {
   return (
     <section className="auth">
-      <img className="auth__logo" src={logo} alt="Логотип сайта Movies" />
+      <Link to="/">
+        <img className="auth__logo" src={logo} alt="Логотип сайта Movies" />
+      </Link>
       <h2 className="auth__greeting">{`${greeting}!`}</h2>
       <form className="auth__form">
         <fieldset className="auth__fieldset">

@@ -9,7 +9,7 @@ function Login() {
       linkPath="/signup"
       signText="Ещё не зарегистрированы?"
       buttonName="Войти"
-      margin="auth__submit_marg_sinin"
+      margin="login__submit_marg_signin"
       signUp={false}
     />
   );
