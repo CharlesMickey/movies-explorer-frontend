@@ -12,7 +12,7 @@ function Header({ handelOpenBurger, headerColor }) {
         <img
           className="header__logo"
           src={logo}
-          alt="Логотип названия сайта Movies"
+          alt="Логотип сайта Movies"
         />
       </Link>
       <Navigation handelOpenBurger={handelOpenBurger} isLoggedIn={isLoggedIn} />

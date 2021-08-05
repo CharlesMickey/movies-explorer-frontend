@@ -17,9 +17,7 @@ function MoviesCardList({ cardLikeButtonClassName }) {
         ))}
       </ul>
       <div className="elements__more">
-        <button className="elements__more-button link">
-          Ещё
-        </button>
+        <button className="elements__more-button link">Ещё</button>
       </div>
     </section>
   );

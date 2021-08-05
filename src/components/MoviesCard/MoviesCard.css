@@ -28,7 +28,7 @@
   min-width: 100%;
   justify-content: space-between;
   height: 49px;
-  border-bottom:  1px solid rgba(232, 232, 232, 1);
+  border-bottom: 1px solid rgba(232, 232, 232, 1);
 }
 
 .element__title {
@@ -56,7 +56,6 @@
   background-image: url(../../images/imgs_svg/delete_film.svg);
 }
 
-
 .element__duration {
   margin: 6px 0 0;
   color: rgba(160, 160, 160, 1);
@@ -76,7 +75,6 @@
   .element__title {
     width: 295px;
   }
-
 }
 
 @media screen and (max-width: 777px) {
@@ -99,6 +97,4 @@
     font-size: 10px;
     line-height: 12px;
   }
-
 }
-

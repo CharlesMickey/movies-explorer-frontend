@@ -19,7 +19,9 @@ function MoviesCard({ cardLikeButtonClassName }) {
           <button
             type="button"
             onClick={handelClick}
-            className={`link ${cardLikeButtonClassName} ${isLike && "element__like_active"}`}
+            className={`link ${cardLikeButtonClassName} ${
+              isLike && "element__like_active"
+            }`}
           ></button>
         </div>
         <p className="element__duration">1ч 42м</p>
