@@ -15,7 +15,9 @@ function BurgerMenu({ isOpen, onClose }) {
         <ul className="burger-menu__navigation">
           <li className="burger-menu__list">
             <NavLink
-              exact to="/"
+              onClick={onClose}
+              exact
+              to="/"
               className="burger-menu__link link"
               activeClassName="burger-menu__link_text_active"
             >
@@ -24,6 +26,7 @@ function BurgerMenu({ isOpen, onClose }) {
           </li>
           <li className="burger-menu__list">
             <NavLink
+              onClick={onClose}
               to="/movies"
               className="burger-menu__link link"
               activeClassName="burger-menu__link_text_active"
@@ -33,6 +36,7 @@ function BurgerMenu({ isOpen, onClose }) {
           </li>
           <li className="burger-menu__list">
             <NavLink
+              onClick={onClose}
               to="/saved-movies"
               className="burger-menu__link link"
               activeClassName="burger-menu__link_text_active"
@@ -42,6 +46,7 @@ function BurgerMenu({ isOpen, onClose }) {
           </li>
         </ul>
         <Link
+          onClick={onClose}
           to="/profile"
           className="burger-menu__link-account link"
         >

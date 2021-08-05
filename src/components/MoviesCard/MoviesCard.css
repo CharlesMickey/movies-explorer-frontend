@@ -1,0 +1,104 @@
+.element {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  height: 230px;
+  background-color: rgba(250, 250, 250, 1);
+  list-style-type: none;
+}
+
+.element__image {
+  height: 151px;
+  width: 270px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.element__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+  margin: 10px 0 0 0;
+}
+
+.element__likes-group {
+  display: flex;
+  flex-direction: row;
+  min-width: 100%;
+  justify-content: space-between;
+  height: 49px;
+  border-bottom:  1px solid rgba(232, 232, 232, 1);
+}
+
+.element__title {
+  margin: 4px 0 0;
+  width: 226px;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+.element__like {
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+  background: url(../../images/imgs_svg/like_disabled.svg) center no-repeat;
+  width: 24px;
+  height: 24px;
+  margin-left: 20px;
+}
+
+.element__like_active {
+  background-image: url(../../images/imgs_svg/like_active.svg);
+}
+
+.element__disabled {
+  background-image: url(../../images/imgs_svg/delete_film.svg);
+}
+
+
+.element__duration {
+  margin: 6px 0 0;
+  color: rgba(160, 160, 160, 1);
+  font-size: 11px;
+  line-height: 13px;
+}
+
+@media screen and (max-width: 989px) {
+  .element {
+    height: 269px;
+  }
+  .element__image {
+    height: 190px;
+    width: 339px;
+  }
+
+  .element__title {
+    width: 295px;
+  }
+
+}
+
+@media screen and (max-width: 777px) {
+  .element {
+    height: 246px;
+  }
+  .element__image {
+    height: 168px;
+    width: 300px;
+  }
+
+  .element__title {
+    width: 240px;
+    font-size: 12px;
+    line-height: 15px;
+    margin-top: 5px;
+  }
+
+  .element__duration {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+}
+

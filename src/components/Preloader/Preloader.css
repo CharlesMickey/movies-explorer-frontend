@@ -45,9 +45,9 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  z-index: 10;
-
-  visibility: hidden;
+  z-index: 1;
+  padding-top: 25px;
+  visibility: visible;
 }
 
 .preloader__container {
