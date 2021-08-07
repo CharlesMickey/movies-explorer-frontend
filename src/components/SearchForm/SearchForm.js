@@ -11,12 +11,13 @@ function SearchForm() {
             type="text"
             name="input"
             placeholder="Фильм"
+            required
           />
           <button
             type="submit"
             value="Отправить на сервер"
             id="search__submit"
-            className="search__submit"
+            className="search__submit link"
           />
         </div>
         <FilterCheckbox />
