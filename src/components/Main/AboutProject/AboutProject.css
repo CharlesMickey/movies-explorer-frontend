@@ -1,0 +1,124 @@
+.about-project {
+  display: flex;
+  flex-direction: column;
+  max-height: 608px;
+  padding: 110px 70px;
+}
+
+.about-project__texts {
+  display: flex;
+  flex-direction: row;
+  grid-gap: 40px;
+}
+
+.about-project__text-title {
+  margin: 70px 0 26px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+
+.about-project__text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.about-project__timeframe {
+  margin-top: 110px;
+  display: grid;
+  grid-template-columns: 20% 1fr;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.about-project__timeframe-item {
+  margin: 0;
+  min-height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(242, 242, 242, 1);
+}
+
+.about-project__timeframe-item_back_color {
+  color: rgb(255, 255, 255, 1);
+  background-color: rgba(52, 86, 243, 1);
+}
+
+.about-project__timeframe-note {
+  margin: 0;
+  min-height: 31px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  color: rgba(160, 160, 160, 1);
+}
+
+@media screen and (max-width: 810px) {
+  .about-project {
+    max-height: 585px;
+    padding: 90px 50px;
+  }
+
+  .about-project__texts {
+    grid-gap: 30px;
+  }
+
+  .about-project__text-title {
+    margin: 70px 0 22px;
+  }
+
+  .about-project__text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .about-project__timeframe {
+    margin-top: 93px;
+    grid-template-columns: 20.9% 1fr;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .about-project {
+    max-height: 641px;
+    padding: 70px 18px;
+  }
+
+  .about-project__title {
+    margin-bottom: 4px;
+  }
+
+  .about-project__texts {
+    flex-direction: column;
+    grid-gap: 0;
+  }
+
+  .about-project__text-title {
+    margin: 56px 0 16px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .about-project__text {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about-project__timeframe {
+    margin-top: 60px;
+    grid-template-columns: 35.2% 1fr;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  .about-project__timeframe-item {
+    min-height: 35px;
+  }
+  .about-project__timeframe-note {
+    min-height: 23px;
+  }
+}

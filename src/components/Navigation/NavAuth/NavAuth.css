@@ -1,0 +1,21 @@
+.navigation__auth-signup {
+  padding: 8px 0;
+}
+
+.navigation__auth-signin {
+  color: rgb(255, 255, 255);
+  margin-left: 30px;
+  background: rgba(52, 86, 243, 1);
+  padding: 8px 20px;
+  border-radius: 3px;
+}
+
+@media screen and (max-width: 500px) {
+  .navigation__auth-signin {
+    margin-left: 14px;
+    padding: 5px 12px;
+  }
+  .navigation__auth-signup {
+    padding: 5px 0;
+  }
+}

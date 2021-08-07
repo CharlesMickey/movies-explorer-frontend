@@ -1,13 +1,27 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+@import url(./styles/link.css);
+@import url(./styles/main-title.css);
+@import url(./components/App/App.css);
+@import url(./components/Header/Header.css);
+@import url(./components/Navigation/Navigation.css);
+@import url(./components/Navigation/NavAuth/NavAuth.css);
+@import url(./components/Navigation/NavMain/NavMain.css);
+@import url(./components/Main/Promo/Promo.css);
+@import url(./components/Main/NavTab/NavTab.css);
+@import url(./components/Main/AboutProject/AboutProject.css);
+@import url(./components/Main/Techs/Techs.css);
+@import url(./components/Main/AboutMe/AboutMe.css);
+@import url(./components/Main/Portfolio/Portfolio.css);
+@import url(./components/Footer/Footer.css);
+@import url(./components/Movies/Movies.css);
+@import url(./components/SavedMovies/SavedMovies.css);
+@import url(./components/SearchForm/SearchForm.css);
+@import url(./components/FilterCheckbox/FilterCheckbox.css);
+@import url(./components/NotFound/NotFound.css);
+@import url(./components/Profile/Profile.css);
+@import url(./components/AuthForm/AuthForm.css);
+@import url(./components/Login/Login.css);
+@import url(./components/BurgerMenu/BurgerMenu.css);
+@import url(./components/MoviesCardList/MoviesCardList.css);
+@import url(./components/MoviesCard/MoviesCard.css);

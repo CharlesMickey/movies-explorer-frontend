@@ -1,0 +1,101 @@
+.search {
+  position: relative;
+  max-height: 222px;
+  padding: 70px 0 69px;
+  margin: 0 70px 10px;
+  border-bottom: 1px solid rgba(232, 232, 232, 1);
+}
+
+.search__form {
+  display: flex;
+  min-height: 72px;
+  align-items: center;
+  border-radius: 9px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+  background-image: url("../../images/imgs_svg/search_icon-start.svg");
+  background-repeat: no-repeat;
+  background-position: 19px;
+}
+
+.search__form-cont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 3;
+}
+
+.search__input {
+  width: 100%;
+  flex-grow: 3;
+  margin-left: 63px;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+.search__input::placeholder {
+  font-family: "Inter", "arial", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: rgba(160, 160, 160, 1);
+}
+
+.search__submit {
+  margin: 0 19px 0 0;
+  padding: 0;
+  border: none;
+  min-height: 34px;
+  min-width: 80px;
+  border-radius: 48px;
+  background-color: rgba(52, 86, 243, 1);
+  background-image: url("../../images/imgs_svg/search_icon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media screen and (max-width: 810px) {
+  .search {
+    max-height: 272px;
+    padding-top: 80px;
+    padding-bottom: 109px;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+}
+
+@media screen and (max-width: 666px) {
+  .search__input {
+    margin-left: 19px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .search__form {
+    flex-wrap: wrap;
+    box-shadow: none;
+    background-image: none;
+    background-color: rgba(250, 250, 250, 1);
+  }
+
+  .search__form-cont {
+    border-radius: 9px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 3px 14px rgba(0, 0, 0, 0.08);
+    min-height: 72px;
+    z-index: 1;
+  }
+
+  .search__input::placeholder {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .search {
+    padding-bottom: 44px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
