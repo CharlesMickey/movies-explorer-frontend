@@ -1,6 +1,5 @@
 import React from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import * as MainApi from "../../utils/MainApi";
 import { useFormWithValidation } from "../validation/useFormWithValidation";
 
 function SearchForm() {
@@ -13,17 +12,11 @@ function SearchForm() {
   function handleChangeInputSearch(e) {
     handleChange(e);
     setIsError(false);
-    console.log(values)
   }
 
   function onSubmit(e) {
     if (e) {
       e.preventDefault();
-      MainApi
-      .getSavedMovies()
-      .then((data) => {
-        console.log(data)
-      })
     }
 
     if (!isValid) {

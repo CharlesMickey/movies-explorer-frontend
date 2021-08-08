@@ -13,12 +13,12 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-export const register = ({ password, email }) => {
+export const register = ({ name, password, email }) => {
   return fetch(`${BASE_URL}/signup`, {
     headers,
     method: "POST",
     credentials: "include",
-    body: JSON.stringify({ password, email }),
+    body: JSON.stringify({ name, password, email }),
   }).then((res) => checkResponse(res));
 };
 
@@ -32,15 +32,8 @@ export const authorize = ({ password, email }) => {
 };
 
 export const signOut = () => {
-  return fetch(`${this._baseUrl}/users/signout`, {
-    method: "DELETE",
-    credentials: "include",
-  }).then((res) => this._checkResponseData(res));
-};
-
-export const getContent = () => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: "GET",
+  return fetch(`${BASE_URL}/users/signout`, {
+    method: "POST",
     credentials: "include",
   }).then((res) => checkResponse(res));
 };

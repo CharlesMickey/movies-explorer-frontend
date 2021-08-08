@@ -30,6 +30,26 @@ function App() {
       });
   }
 
+  function register({ name, email, password }) {
+    return apiAuth
+      .register({ name, email, password })
+      .then((res) => {
+        console.log(res)
+        history.push('/movies');
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
+  function signOut() {
+    return apiAuth.signOut()
+      .then((res) => console.log(res))
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
+
   function handelOpenBurger() {
     setIsOpenBurger(true);
   }
@@ -63,7 +83,7 @@ function App() {
             <Login onLogin={onLogin}/>
           </Route>
           <Route exact path="/signup">
-            <Register />
+            <Register register={register}/>
           </Route>
           <Route exact path="/">
             <Main handelOpenBurger={handelOpenBurger} />
@@ -75,7 +95,7 @@ function App() {
             <SavedMovies handelOpenBurger={handelOpenBurger} />
           </Route>
           <Route path="/profile">
-            <Profile handelOpenBurger={handelOpenBurger} />
+            <Profile signOut={signOut} handelOpenBurger={handelOpenBurger} />
           </Route>
           <Route path="*">
             <NotFound />

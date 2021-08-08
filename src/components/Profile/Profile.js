@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../Header/Header";
 import Preloader from "../Preloader/Preloader";
 
-function Profile({ handelOpenBurger }) {
+function Profile({ signOut, handelOpenBurger }) {
   const isLoading = false;
   const name = "Инесса";
   return (
@@ -50,6 +50,7 @@ function Profile({ handelOpenBurger }) {
             className="profile__button-out"
             value="Выйти из аккаунта"
             type="button"
+            onClick={signOut}
           >
             Выйти из аккаунта
           </button>

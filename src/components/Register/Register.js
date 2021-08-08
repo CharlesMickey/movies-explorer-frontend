@@ -1,7 +1,16 @@
 import React from "react";
 import AuthForm from "../AuthForm/AuthForm";
+import { useFormWithValidation } from "../validation/useFormWithValidation";
 
-function Register() {
+function Register({register}) {
+  const { values, handleChange } = useFormWithValidation({});
+
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(values)
+    register(values);
+  }
   return (
     <AuthForm
       greeting={"Добро пожаловать"}
@@ -11,6 +20,8 @@ function Register() {
       buttonName="Зарегистрироваться"
       margin=""
       signUp={true}
+      handleChangeInput={handleChange}
+      handleSubmit={handleSubmit}
     />
   );
 }

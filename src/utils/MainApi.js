@@ -21,11 +21,9 @@ export const getSavedMovies = () => {
 };
 
 
-export const register = ({ password, email }) => {
-  return fetch(`${BASE_URL}/signup`, {
-    headers,
-    method: "POST",
+export const getUserInfo = () => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
     credentials: "include",
-    body: JSON.stringify({ password, email }),
   }).then((res) => checkResponse(res));
 };

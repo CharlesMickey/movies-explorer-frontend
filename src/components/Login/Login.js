@@ -1,21 +1,15 @@
 import React from "react";
 import AuthForm from "../AuthForm/AuthForm";
+import { useFormWithValidation } from "../validation/useFormWithValidation";
 
 function Login({ onLogin }) {
-  const [stateInput, setStateInput] = React.useState({
-    email: "",
-    password: "",
-  });
+  const { values, handleChange } = useFormWithValidation({});
 
-  function handleChangeInput(e) {
-    const { name, value } = e.target;
-    setStateInput({ ...stateInput, [name]: value });
-  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(stateInput)
-    onLogin(stateInput);
+    console.log(values)
+    onLogin(values);
   }
 
   return (
@@ -27,7 +21,7 @@ function Login({ onLogin }) {
       buttonName="Войти"
       margin="login__submit_marg_signin"
       signUp={false}
-      handleChangeInput={handleChangeInput}
+      handleChangeInput={handleChange}
       handleSubmit={handleSubmit}
     />
   );
