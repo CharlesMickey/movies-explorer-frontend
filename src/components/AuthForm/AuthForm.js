@@ -11,6 +11,8 @@ function AuthForm({
   buttonName,
   signUp,
   margin,
+  handleChangeInput,
+  handleSubmit,
 }) {
   return (
     <section className="auth">
@@ -18,7 +20,7 @@ function AuthForm({
         <img className="auth__logo" src={logo} alt="Логотип сайта Movies" />
       </Link>
       <h2 className="auth__greeting">{`${greeting}!`}</h2>
-      <form className="auth__form">
+      <form className="auth__form" onSubmit={handleSubmit}>
         <fieldset className="auth__fieldset">
           {signUp && (
             <label className="auth__label">
@@ -29,6 +31,7 @@ function AuthForm({
                 maxLength={30}
                 type="text"
                 name="name"
+                onChange={handleChangeInput}
                 required
               />
               <span className="auth__input-error" id="name-error">
@@ -38,7 +41,7 @@ function AuthForm({
           )}
           <label className="auth__label">
             <p className="auth__input-name">E-mail</p>
-            <input className="auth__input" type="email" name="email" required />
+            <input className="auth__input" onChange={handleChangeInput} type="email" name="email" required />
             <span className="auth__input-error" id="email-error">
               Что-то пошло не так...
             </span>
@@ -47,9 +50,10 @@ function AuthForm({
             <p className="auth__input-name">Пароль</p>
             <input
               className="auth__input"
-              maxLength={8}
+              minLength={8}
               type="password"
               name="password"
+              onChange={handleChangeInput}
               required
             />
             <span className="auth__input-error" id="password-error">

@@ -2,7 +2,28 @@ import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList({ cardLikeButtonClassName }) {
-  const cards = [1, 2, 3, 4];
+  const cards = [
+    {
+      id: 10,
+      name: "Фильм: Пи Джей Харви: A dog called money",
+      lastMessageAt: "20:45",
+    },
+    {
+      id: 5,
+      name: "Allison",
+      lastMessageAt: "12:31",
+    },
+    {
+      id: 3,
+      name: "James",
+      lastMessageAt: "07:40",
+    },
+    {
+      id: 11,
+      name: "Gregory",
+      lastMessageAt: "20:45",
+    },
+  ];
 
   const classUl =
     cards.length < 4
@@ -12,8 +33,8 @@ function MoviesCardList({ cardLikeButtonClassName }) {
   return (
     <section className="elements">
       <ul className={classUl}>
-        {cards.map(() => (
-          <MoviesCard cardLikeButtonClassName={cardLikeButtonClassName} />
+        {cards.map((card) => (
+          <MoviesCard name={card.name} key={card.id} cardLikeButtonClassName={cardLikeButtonClassName} />
         ))}
       </ul>
       <div className="elements__more">

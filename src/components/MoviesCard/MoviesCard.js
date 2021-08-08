@@ -1,7 +1,7 @@
 import React from "react";
 import CardImg from "../../images/imgs_svg/Card.png";
 
-function MoviesCard({ cardLikeButtonClassName }) {
+function MoviesCard({ name, cardLikeButtonClassName }) {
   const [isLike, setIsLike] = React.useState(true);
   function handelClick() {
     setIsLike(!isLike);
@@ -11,11 +11,11 @@ function MoviesCard({ cardLikeButtonClassName }) {
       <img
         className="element__image"
         src={CardImg}
-        alt={`Фильм: Пи Джей Харви: A dog called money`}
+        alt={name}
       />
       <div className="element__card">
         <div className="element__likes-group">
-          <h2 className="element__title">Пи Джей Харви: A dog called money</h2>
+          <h2 className="element__title">{name}</h2>
           <button
             type="button"
             onClick={handelClick}

@@ -1,9 +1,29 @@
 .search {
   position: relative;
+  display: block;
   max-height: 222px;
   padding: 70px 0 69px;
   margin: 0 70px 10px;
   border-bottom: 1px solid rgba(232, 232, 232, 1);
+}
+
+.form__error {
+  position: absolute;
+  display: block;
+  width: 214px;
+  top: 45px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(238, 52, 101, 1);
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s linear;
+}
+
+.form__error_visible {
+  visibility: visible;
+  opacity: 1;
 }
 
 .search__form {

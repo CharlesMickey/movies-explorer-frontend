@@ -1,8 +1,8 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Login from "../Login/Login";
-
+import * as apiAuth from "../../utils/apiAuth.js";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
@@ -12,8 +12,23 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function App() {
+  const history = useHistory();
+
   const [isOpenBurger, setIsOpenBurger] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
+
+
+  function onLogin({ email, password }) {
+    return apiAuth
+      .authorize({ email, password })
+      .then((res) => {
+        console.log(res)
+        history.push('/movies');
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
+  }
 
   function handelOpenBurger() {
     setIsOpenBurger(true);
@@ -45,7 +60,7 @@ function App() {
       >
         <Switch>
           <Route exact path="/signin">
-            <Login />
+            <Login onLogin={onLogin}/>
           </Route>
           <Route exact path="/signup">
             <Register />
