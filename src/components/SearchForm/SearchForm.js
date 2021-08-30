@@ -2,7 +2,7 @@ import React from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../validation/useFormWithValidation";
 
-function SearchForm() {
+function SearchForm({getMovies}) {
   const { values, handleChange, isValid } = useFormWithValidation({});
   const [isError, setIsError] = React.useState(false);
   const styleError = isError
@@ -23,6 +23,7 @@ function SearchForm() {
       setIsError(true);
     } else {
       setIsError(false);
+      getMovies()
     }
     return;
   }
@@ -45,6 +46,7 @@ function SearchForm() {
             value="Отправить на сервер"
             id="search__submit"
             className="search__submit link"
+
           />
         </div>
         <FilterCheckbox />

@@ -3,6 +3,7 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Login from "../Login/Login";
 import * as apiAuth from "../../utils/apiAuth.js";
+import * as  MoviesApi  from "../../utils/MoviesApi";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
@@ -10,6 +11,7 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
 
 function App() {
   const history = useHistory();
@@ -48,6 +50,14 @@ function App() {
       .catch((err) => {
         console.log(`${err}`);
       });
+  }
+
+  function getMovies() {
+    return MoviesApi.getMovies()
+    .then((res) => console.log(res))
+    .catch((err) => {
+      console.log(`${err}`);
+    });
   }
 
   function handelOpenBurger() {
@@ -89,7 +99,7 @@ function App() {
             <Main handelOpenBurger={handelOpenBurger} />
           </Route>
           <Route path="/movies">
-            <Movies handelOpenBurger={handelOpenBurger} />
+            <Movies getMovies={getMovies} handelOpenBurger={handelOpenBurger} />
           </Route>
           <Route path="/saved-movies">
             <SavedMovies handelOpenBurger={handelOpenBurger} />
