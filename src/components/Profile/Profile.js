@@ -2,12 +2,12 @@ import React from "react";
 import Header from "../Header/Header";
 import Preloader from "../Preloader/Preloader";
 
-function Profile({ signOut, handelOpenBurger }) {
+function Profile({isLoggedIn, signOut, handelOpenBurger }) {
   const isLoading = false;
   const name = "Инесса";
   return (
     <>
-      <Header handelOpenBurger={handelOpenBurger} />
+      <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
       <section className="profile">
         <h2 className="profile__greeting">{`Привет, ${name}!`}</h2>
         <form className="profile__form">

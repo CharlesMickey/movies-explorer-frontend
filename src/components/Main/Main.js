@@ -9,11 +9,11 @@ import Portfolio from "./Portfolio/Portfolio";
 import Promo from "./Promo/Promo";
 import Techs from "./Techs/Techs";
 
-function Main({ handelOpenBurger }) {
+function Main({isLoggedIn, handelOpenBurger }) {
   const headerColor = "header-color";
   return (
     <>
-      <Header handelOpenBurger={handelOpenBurger} headerColor={headerColor} />
+      <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} headerColor={headerColor} />
       <Promo />
       <NavTab />
       <AboutProject />

@@ -23,7 +23,7 @@ function SearchForm({getMovies}) {
       setIsError(true);
     } else {
       setIsError(false);
-      getMovies()
+      getMovies(values.input)
     }
     return;
   }

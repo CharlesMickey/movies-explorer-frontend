@@ -6,17 +6,38 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies({ handelOpenBurger }) {
-  const isLoading = true;
+function SavedMovies({ isLoading, isLoggedIn, handelOpenBurger }) {
+  const showMovies =  [
+    {
+      id: 10,
+      name: "Фильм: Пи Джей Харви: A dog called money",
+      lastMessageAt: "20:45",
+    },
+    {
+      id: 5,
+      name: "Allison",
+      lastMessageAt: "12:31",
+    },
+    {
+      id: 3,
+      name: "James",
+      lastMessageAt: "07:40",
+    },
+    {
+      id: 11,
+      name: "Gregory",
+      lastMessageAt: "20:45",
+    },
+  ];
   return (
     <>
-      <Header handelOpenBurger={handelOpenBurger} />
+      <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
       <section className="saved-movies">
         <SearchForm />
         {isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList cardLikeButtonClassName="element__like element__disabled" />
+          <MoviesCardList  showMovies={showMovies} cardLikeButtonClassName="element__like element__disabled" />
         )}
       </section>
       <Footer />

@@ -6,17 +6,16 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function Movies({ getMovies, handelOpenBurger }) {
-  const isLoading = false;
+function Movies({ isLoading, isLoggedIn, getMovies, showMovies, handelOpenBurger }) {
   return (
     <>
-      <Header handelOpenBurger={handelOpenBurger} />
+      <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
       <section className="movies">
-        <SearchForm getMovies={getMovies}/>
+        <SearchForm getMovies={getMovies} />
         {isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList cardLikeButtonClassName="element__like" />
+          <MoviesCardList showMovies={showMovies} cardLikeButtonClassName="element__like" />
         )}
       </section>
 
