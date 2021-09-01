@@ -1,6 +1,7 @@
 import React from "react";
+import parserDuration from "../../utils/parserDuration.js"
 
-function MoviesCard({img, name, cardLikeButtonClassName }) {
+function MoviesCard({duration, img, name, cardLikeButtonClassName }) {
   const [isLike, setIsLike] = React.useState(true);
   function handelClick() {
     setIsLike(!isLike);
@@ -23,7 +24,7 @@ function MoviesCard({img, name, cardLikeButtonClassName }) {
             }`}
           ></button>
         </div>
-        <p className="element__duration">1ч 42м</p>
+        <p className="element__duration">{parserDuration(duration)}</p>
       </div>
     </li>
   );

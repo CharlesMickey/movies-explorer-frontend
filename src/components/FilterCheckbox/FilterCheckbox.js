@@ -1,9 +1,13 @@
 import React from "react";
 
-function FilterCheckbox() {
+function FilterCheckbox({handelChangeCheckbox}) {
+  function handleChange() {
+    handelChangeCheckbox()
+
+}
   return (
     <label className="check">
-      <input type="checkbox" name="checkbox" className="invisible-checkbox" />
+      <input onChange={handleChange} type="checkbox" name="checkbox" className="invisible-checkbox" />
       <span className="visible-checkbox" />
       Короткометражки
     </label>

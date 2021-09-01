@@ -2,7 +2,7 @@ import React from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../validation/useFormWithValidation";
 
-function SearchForm({getMovies}) {
+function SearchForm({handelChangeCheckbox, getMovies}) {
   const { values, handleChange, isValid } = useFormWithValidation({});
   const [isError, setIsError] = React.useState(false);
   const styleError = isError
@@ -28,6 +28,7 @@ function SearchForm({getMovies}) {
     return;
   }
 
+
   return (
     <section className="search">
       <span className={styleError}>Нужно ввести ключевое слово</span>
@@ -49,7 +50,7 @@ function SearchForm({getMovies}) {
 
           />
         </div>
-        <FilterCheckbox />
+        <FilterCheckbox handelChangeCheckbox={handelChangeCheckbox} />
       </form>
     </section>
   );

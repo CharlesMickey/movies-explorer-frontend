@@ -12,6 +12,7 @@ function MoviesCardList({ showMovies, cardLikeButtonClassName }) {
       <ul className={classUl}>
         {showMovies.map((card) => (
           <MoviesCard
+            duration={card.duration}
             img={card.img}
             name={card.nameRU}
             key={card.id}

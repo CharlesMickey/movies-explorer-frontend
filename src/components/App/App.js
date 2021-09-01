@@ -22,6 +22,7 @@ function App() {
 
   const [showMovies, setShowMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isShortMovies, setIsShortMovies] = React.useState(false);
 
   function onLogin({ email, password }) {
     return apiAuth
@@ -57,7 +58,7 @@ function App() {
   }
 
   function getMovies(req) {
-    setIsLoading(true)
+    setIsLoading(true);
     return MoviesApi.getMovies()
 
       .then((res) => {
@@ -70,11 +71,18 @@ function App() {
       .then((res) => {
         const localMovies = JSON.parse(localStorage.getItem("movies"));
         let filterMovies = [];
-        filterMovies = localMovies.filter((movie) => {
-          return movie.nameRU.toLowerCase().includes(req.toLowerCase());
-        });
+
+        if (localMovies) {
+          filterMovies = localMovies.filter((movie) => {
+            return movie.nameRU.toLowerCase().includes(req.toLowerCase());
+          });
+          if (isShortMovies) {
+            filterMovies = localMovies.filter((movie) => movie.duration <= 40);
+          }
+        }
         localStorage.setItem("filtered-movies", JSON.stringify(filterMovies));
         setShowMovies(JSON.parse(localStorage.getItem("filtered-movies")));
+
       })
       .catch((err) => {
         console.log(`${err}`);
@@ -104,6 +112,10 @@ function App() {
     }
   }
 
+  function handelChangeCheckbox() {
+    setIsShortMovies(!isShortMovies);
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div
@@ -128,6 +140,7 @@ function App() {
             exact
             path="/movies"
             showMovies={showMovies}
+            handelChangeCheckbox={handelChangeCheckbox}
             component={Movies}
             getMovies={getMovies}
             handelOpenBurger={handelOpenBurger}

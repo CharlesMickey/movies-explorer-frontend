@@ -6,12 +6,12 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function Movies({ isLoading, isLoggedIn, getMovies, showMovies, handelOpenBurger }) {
+function Movies({handelChangeCheckbox, isLoading, isLoggedIn, getMovies, showMovies, handelOpenBurger }) {
   return (
     <>
       <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
       <section className="movies">
-        <SearchForm getMovies={getMovies} />
+        <SearchForm handelChangeCheckbox={handelChangeCheckbox} getMovies={getMovies} />
         {isLoading ? (
           <Preloader />
         ) : (
