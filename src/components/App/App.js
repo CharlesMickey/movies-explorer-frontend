@@ -15,9 +15,11 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import filterMovies from "../../utils/filterMovies";
 import Preloader from "../Preloader/Preloader";
 import { BASE_URL } from "../../utils/constants";
+import GetResize from "../../utils/GetResize";
 
 function App() {
   const history = useHistory();
+  const width = GetResize()
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isOpenBurger, setIsOpenBurger] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
@@ -25,6 +27,10 @@ function App() {
   const [showMovies, setShowMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isShortMovies, setIsShortMovies] = React.useState(false);
+
+  const [isNotFound, setIsNotFound] = React.useState(false);
+
+
 
   function onLogin({ email, password }) {
     return apiAuth
@@ -50,10 +56,16 @@ function App() {
       });
   }
 
+  function deleteData() {
+    setIsLoggedIn(false);
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
   function signOut() {
     return apiAuth
       .signOut()
-      .then((res) => console.log(res))
+      .then((res) => deleteData())
       .catch((err) => {
         console.log(`${err}`);
       });
@@ -74,11 +86,37 @@ function App() {
     }
   }, []);
 
-  function searchForMovies(req) {
-    return setShowMovies(
-      filterMovies(JSON.parse(localStorage.movies), req, isShortMovies)
-    );
+  function notFoundMovies(filteredMovies) {
+    if (!filteredMovies.length) {
+      setIsNotFound(true);
+    } else {
+      setIsNotFound(false);
+    }
   }
+
+  function handleSearchForMovies(req) {
+    const filteredMovies = filterMovies(
+      JSON.parse(localStorage.movies),
+      req,
+      isShortMovies
+    );
+    notFoundMovies(filteredMovies);
+
+    return setShowMovies(filteredMovies);
+  }
+
+  React.useEffect(() => {
+    if (localStorage.movies && sessionStorage.request) {
+      const filteredMovies = filterMovies(
+        JSON.parse(localStorage.movies),
+        sessionStorage.request,
+        isShortMovies
+      );
+      notFoundMovies(filteredMovies);
+      return setShowMovies(filteredMovies);
+    }
+    return;
+  }, [isShortMovies]);
 
   function handelOpenBurger() {
     setIsOpenBurger(true);
@@ -103,19 +141,6 @@ function App() {
   function handelChangeCheckbox() {
     setIsShortMovies(!isShortMovies);
   }
-
-  React.useEffect(() => {
-      if (localStorage.movies && sessionStorage.request) {
-        return setShowMovies(
-          filterMovies(
-            JSON.parse(localStorage.movies),
-            sessionStorage.request,
-            isShortMovies
-          )
-        );
-      }
-    return;
-  }, [isShortMovies]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -143,14 +168,16 @@ function App() {
             showMovies={showMovies}
             handelChangeCheckbox={handelChangeCheckbox}
             component={Movies}
-            getMovies={searchForMovies}
+            getMovies={handleSearchForMovies}
             handelOpenBurger={handelOpenBurger}
+            notFound={isNotFound}
           />
 
           <Route path="/saved-movies">
             <SavedMovies
               isLoggedIn={isLoggedIn}
               isLoading={isLoading}
+              notFound={isNotFound}
               handelOpenBurger={handelOpenBurger}
             />
           </Route>

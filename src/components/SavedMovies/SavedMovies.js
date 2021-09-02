@@ -6,7 +6,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies({ isLoading, isLoggedIn, handelOpenBurger }) {
+function SavedMovies({notFound, isLoading, isLoggedIn, handelOpenBurger }) {
   const showMovies =  [
     {
       id: 10,
@@ -34,7 +34,7 @@ function SavedMovies({ isLoading, isLoggedIn, handelOpenBurger }) {
       <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
       <section className="saved-movies">
         <SearchForm />
-        {isLoading ? (
+        {!notFound && isLoading ? (
           <Preloader />
         ) : (
           <MoviesCardList  showMovies={showMovies} cardLikeButtonClassName="element__like element__disabled" />

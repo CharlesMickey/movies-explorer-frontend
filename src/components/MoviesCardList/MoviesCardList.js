@@ -1,7 +1,12 @@
 import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ showMovies, cardLikeButtonClassName }) {
+function MoviesCardList({
+  movies,
+  notFound,
+  showMovies,
+  cardLikeButtonClassName,
+}) {
   const classUl =
     showMovies.length < 4
       ? "elements__list"
@@ -9,20 +14,25 @@ function MoviesCardList({ showMovies, cardLikeButtonClassName }) {
 
   return (
     <section className="elements">
-      <ul className={classUl}>
-        {showMovies.map((card) => (
-          <MoviesCard
-            duration={card.duration}
-            img={card.img}
-            name={card.nameRU}
-            key={card.id}
-            cardLikeButtonClassName={cardLikeButtonClassName}
-          />
-        ))}
-      </ul>
-      <div className="elements__more">
-        <button className="elements__more-button link">Ещё</button>
-      </div>
+      {!notFound && (
+        <ul className={classUl}>
+          {showMovies.map((card) => (
+            <MoviesCard
+              duration={card.duration}
+              img={card.img}
+              name={card.nameRU}
+              key={card.id}
+              cardLikeButtonClassName={cardLikeButtonClassName}
+            />
+          ))}
+        </ul>
+      )}
+      {notFound && <p className="elements__not-found">Ничего не найдено</p>}
+      {movies && (
+        <div className="elements__more">
+          <button className="elements__more-button link">Ещё</button>
+        </div>
+      )}
     </section>
   );
 }
