@@ -118,6 +118,10 @@ function App() {
     return;
   }, [isShortMovies]);
 
+  React.useEffect(() => {
+
+  }, []);
+
   function handelOpenBurger() {
     setIsOpenBurger(true);
   }

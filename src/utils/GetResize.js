@@ -10,7 +10,6 @@ function GetResize() {
       timeoutWidth = setTimeout(() => setWidth(window.innerWidth), 500);
     }
     window.addEventListener("resize", handleResize);
-    console.log(width);
     return () => window.removeEventListener("resize", handleResize);
   }, [width]);
 }

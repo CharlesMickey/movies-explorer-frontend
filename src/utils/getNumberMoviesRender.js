@@ -1,3 +1,21 @@
 function getNumberMoviesRender(width) {
-  if (width >= 1280)
+  let numberOfMoviesToRender;
+  let numberOfMoviesToAdd;
+
+  if (width >= 1280) {
+    numberOfMoviesToRender = 16;
+    numberOfMoviesToAdd = 4;
+  } else if (width > 990) {
+    numberOfMoviesToRender = 12;
+    numberOfMoviesToAdd = 3;
+  } else if (width > 649) {
+    numberOfMoviesToRender = 8;
+    numberOfMoviesToAdd = 2;
+  } else if (width < 650) {
+    numberOfMoviesToRender = 5;
+    numberOfMoviesToAdd = 5;
+  }
+  return { numberOfMoviesToRender, numberOfMoviesToAdd };
 }
+
+export default getNumberMoviesRender;
