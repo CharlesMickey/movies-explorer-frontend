@@ -16,10 +16,11 @@ import filterMovies from "../../utils/filterMovies";
 import Preloader from "../Preloader/Preloader";
 import { BASE_URL } from "../../utils/constants";
 import GetResize from "../../utils/GetResize";
+import getNumberMoviesRender from "../../utils/getNumberMoviesRender";
 
 function App() {
   const history = useHistory();
-  const width = GetResize()
+  let width = GetResize();
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [isOpenBurger, setIsOpenBurger] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
@@ -30,7 +31,9 @@ function App() {
 
   const [isNotFound, setIsNotFound] = React.useState(false);
 
-
+  const [isNumberOfMoviesToRender, setIsNumberOfMoviesToRender] =
+    React.useState(0);
+  const [isNumberOfMoviesToAdd, setIsNumberOfMoviesToAdd] = React.useState(0);
 
   function onLogin({ email, password }) {
     return apiAuth
@@ -119,8 +122,12 @@ function App() {
   }, [isShortMovies]);
 
   React.useEffect(() => {
+    const { numberOfMoviesToRender, numberOfMoviesToAdd } =
+      getNumberMoviesRender(width);
 
-  }, []);
+    setIsNumberOfMoviesToAdd(numberOfMoviesToAdd);
+    setIsNumberOfMoviesToRender(numberOfMoviesToRender);
+  }, [width, isShortMovies]);
 
   function handelOpenBurger() {
     setIsOpenBurger(true);
@@ -175,6 +182,9 @@ function App() {
             getMovies={handleSearchForMovies}
             handelOpenBurger={handelOpenBurger}
             notFound={isNotFound}
+            isNumberOfMoviesToAdd={isNumberOfMoviesToAdd}
+            isNumberOfMoviesToRender={isNumberOfMoviesToRender}
+            moreMoviesRender={setIsNumberOfMoviesToRender}
           />
 
           <Route path="/saved-movies">
@@ -192,7 +202,6 @@ function App() {
               handelOpenBurger={handelOpenBurger}
             />
           </Route>
-
           <Route path="*">
             <NotFound />
           </Route>

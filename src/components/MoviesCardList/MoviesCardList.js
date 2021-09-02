@@ -6,17 +6,28 @@ function MoviesCardList({
   notFound,
   showMovies,
   cardLikeButtonClassName,
+  isNumberOfMoviesToAdd,
+  isNumberOfMoviesToRender,
+  moreMoviesRender,
 }) {
   const classUl =
     showMovies.length < 4
       ? "elements__list"
       : "elements__list elements__list_grid_center";
 
+  let moviesRender = [...showMovies];
+  moviesRender.length = isNumberOfMoviesToRender;
+  const moreButtonVisible = moviesRender.length < showMovies.length;
+
+  function handleMore() {
+    return moreMoviesRender(isNumberOfMoviesToAdd + isNumberOfMoviesToRender);
+  }
+
   return (
     <section className="elements">
       {!notFound && (
         <ul className={classUl}>
-          {showMovies.map((card) => (
+          {moviesRender.slice(0, isNumberOfMoviesToRender).map((card) => (
             <MoviesCard
               duration={card.duration}
               img={card.img}
@@ -28,9 +39,11 @@ function MoviesCardList({
         </ul>
       )}
       {notFound && <p className="elements__not-found">Ничего не найдено</p>}
-      {movies && (
+      {movies && moreButtonVisible && (
         <div className="elements__more">
-          <button className="elements__more-button link">Ещё</button>
+          <button onClick={handleMore} className="elements__more-button link">
+            Ещё
+          </button>
         </div>
       )}
     </section>

@@ -14,6 +14,9 @@ function Movies({
   getMovies,
   showMovies,
   handelOpenBurger,
+  isNumberOfMoviesToAdd,
+  isNumberOfMoviesToRender,
+  moreMoviesRender
 }) {
   return (
     <>
@@ -28,6 +31,9 @@ function Movies({
         ) : (
           <MoviesCardList
             movies={true}
+            isNumberOfMoviesToAdd={isNumberOfMoviesToAdd}
+            isNumberOfMoviesToRender={isNumberOfMoviesToRender}
+            moreMoviesRender={moreMoviesRender}
             notFound={notFound}
             showMovies={showMovies}
             cardLikeButtonClassName="element__like"

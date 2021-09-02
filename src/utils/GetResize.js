@@ -11,7 +11,8 @@ function GetResize() {
     }
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [width]);
+  }, []);
+  return width;
 }
 
 export default GetResize;
