@@ -13,3 +13,5 @@ export const optionsMovies = {
     "Content-Type": "application/json",
   },
 };
+
+export const BASE_URL = "https://api.nomoreparties.co"

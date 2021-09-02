@@ -12,7 +12,9 @@ import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import filterMovies from "../../utils/filterMovies";
 import Preloader from "../Preloader/Preloader";
+import { BASE_URL } from "../../utils/constants";
 
 function App() {
   const history = useHistory();
@@ -57,39 +59,25 @@ function App() {
       });
   }
 
-  function getMovies(req) {
-    setIsLoading(true);
-    return MoviesApi.getMovies()
-
-      .then((res) => {
-        const p = res.map((pr) => {
-          return { ...pr, img: `https://api.nomoreparties.co${pr.image.url}` };
-        });
-        const d = localStorage.setItem("movies", JSON.stringify(p));
-        return d;
-      })
-      .then((res) => {
-        const localMovies = JSON.parse(localStorage.getItem("movies"));
-        let filterMovies = [];
-
-        if (localMovies) {
-          filterMovies = localMovies.filter((movie) => {
-            return movie.nameRU.toLowerCase().includes(req.toLowerCase());
+  React.useEffect(() => {
+    if (!localStorage.movies) {
+      return MoviesApi.getMovies()
+        .then((res) => {
+          const movies = res.map((movie) => {
+            return { ...movie, img: `${BASE_URL}${movie.image.url}` };
           });
-          if (isShortMovies) {
-            filterMovies = localMovies.filter((movie) => movie.duration <= 40);
-          }
-        }
-        localStorage.setItem("filtered-movies", JSON.stringify(filterMovies));
-        setShowMovies(JSON.parse(localStorage.getItem("filtered-movies")));
+          localStorage.setItem("movies", JSON.stringify(movies));
+        })
+        .catch((err) => {
+          console.log(`${err}`);
+        });
+    }
+  }, []);
 
-      })
-      .catch((err) => {
-        console.log(`${err}`);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+  function searchForMovies(req) {
+    return setShowMovies(
+      filterMovies(JSON.parse(localStorage.movies), req, isShortMovies)
+    );
   }
 
   function handelOpenBurger() {
@@ -115,6 +103,19 @@ function App() {
   function handelChangeCheckbox() {
     setIsShortMovies(!isShortMovies);
   }
+
+  React.useEffect(() => {
+      if (localStorage.movies && sessionStorage.request) {
+        return setShowMovies(
+          filterMovies(
+            JSON.parse(localStorage.movies),
+            sessionStorage.request,
+            isShortMovies
+          )
+        );
+      }
+    return;
+  }, [isShortMovies]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -142,7 +143,7 @@ function App() {
             showMovies={showMovies}
             handelChangeCheckbox={handelChangeCheckbox}
             component={Movies}
-            getMovies={getMovies}
+            getMovies={searchForMovies}
             handelOpenBurger={handelOpenBurger}
           />
 

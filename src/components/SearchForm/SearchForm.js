@@ -2,7 +2,7 @@ import React from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../validation/useFormWithValidation";
 
-function SearchForm({handelChangeCheckbox, getMovies}) {
+function SearchForm({ handelChangeCheckbox, getMovies }) {
   const { values, handleChange, isValid } = useFormWithValidation({});
   const [isError, setIsError] = React.useState(false);
   const styleError = isError
@@ -23,11 +23,11 @@ function SearchForm({handelChangeCheckbox, getMovies}) {
       setIsError(true);
     } else {
       setIsError(false);
-      getMovies(values.input)
+      getMovies(values.input);
+      sessionStorage.setItem("request", values.input)
     }
     return;
   }
-
 
   return (
     <section className="search">
@@ -47,7 +47,6 @@ function SearchForm({handelChangeCheckbox, getMovies}) {
             value="Отправить на сервер"
             id="search__submit"
             className="search__submit link"
-
           />
         </div>
         <FilterCheckbox handelChangeCheckbox={handelChangeCheckbox} />
