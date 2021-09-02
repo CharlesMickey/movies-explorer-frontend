@@ -1,18 +1,23 @@
 import React from "react";
-import parserDuration from "../../utils/parserDuration.js"
+import parserDuration from "../../utils/parserDuration.js";
 
-function MoviesCard({duration, img, name, cardLikeButtonClassName }) {
+function MoviesCard({
+  duration,
+  img,
+  name,
+  cardLikeButtonClassName,
+  trailerLink,
+}) {
   const [isLike, setIsLike] = React.useState(true);
   function handelClick() {
+    console.log(trailerLink);
     setIsLike(!isLike);
   }
   return (
     <li className="element">
-      <img
-        className="element__image"
-        src={img}
-        alt={name}
-      />
+      <a href={trailerLink} rel="noopener noreferrer" target="_blank">
+        <img className="element__image" src={img} alt={name} />
+      </a>
       <div className="element__card">
         <div className="element__likes-group">
           <h2 className="element__title">{name}</h2>

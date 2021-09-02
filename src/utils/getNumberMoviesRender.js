@@ -2,7 +2,12 @@ function getNumberMoviesRender(width) {
   let numberOfMoviesToRender;
   let numberOfMoviesToAdd;
 
-  if (width >= 1280) {
+  if (width > 1281) {
+    const numberOfMoviesToRenderBigWindow = 4 + (Math.floor((width - 1280) / 270));
+    console.log(numberOfMoviesToRenderBigWindow)
+    numberOfMoviesToRender = numberOfMoviesToRenderBigWindow * 3;
+    numberOfMoviesToAdd = numberOfMoviesToRenderBigWindow;
+  } else if (width > 1280) {
     numberOfMoviesToRender = 16;
     numberOfMoviesToAdd = 4;
   } else if (width > 990) {

@@ -27,12 +27,13 @@ function MoviesCardList({
     <section className="elements">
       {!notFound && (
         <ul className={classUl}>
-          {moviesRender.slice(0, isNumberOfMoviesToRender).map((card) => (
+          {moviesRender.map((card) => (
             <MoviesCard
               duration={card.duration}
+              trailerLink={card.trailerLink}
               img={card.img}
               name={card.nameRU}
-              key={card.id}
+              key={card.id || card._id}
               cardLikeButtonClassName={cardLikeButtonClassName}
             />
           ))}

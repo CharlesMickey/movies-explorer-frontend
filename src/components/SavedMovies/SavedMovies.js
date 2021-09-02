@@ -10,34 +10,39 @@ function SavedMovies({notFound, isLoading, isLoggedIn, handelOpenBurger }) {
   const showMovies =  [
     {
       id: 10,
-      name: "Фильм: Пи Джей Харви: A dog called money",
-      lastMessageAt: "20:45",
+      nameRU: "Фильм: Пи Джей Харви: A dog called money",
+      duration: 80,
+      img: "https://api.nomoreparties.co/uploads/maxresdefault_505b3fa578.jpeg"
     },
     {
       id: 5,
-      name: "Allison",
-      lastMessageAt: "12:31",
+      nameRU: "Allison",
+      duration: 35,
+      img: "https://api.nomoreparties.co/uploads/maxresdefault_505b3fa578.jpeg"
+
     },
     {
       id: 3,
-      name: "James",
-      lastMessageAt: "07:40",
+      nameRU: "James",
+      duration: 46,
+      img: "https://api.nomoreparties.co/uploads/maxresdefault_505b3fa578.jpeg"
     },
     {
       id: 11,
-      name: "Gregory",
-      lastMessageAt: "20:45",
+      nameRU: "Gregory",
+      duration: 24,
+      img: "https://api.nomoreparties.co/uploads/maxresdefault_505b3fa578.jpeg"
     },
   ];
   return (
     <>
       <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
       <section className="saved-movies">
-        <SearchForm />
+        <SearchForm savedMovies={true}/>
         {!notFound && isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList  showMovies={showMovies} cardLikeButtonClassName="element__like element__disabled" />
+          <MoviesCardList isNumberOfMoviesToRender={showMovies.length}  showMovies={showMovies} cardLikeButtonClassName="element__like element__disabled" />
         )}
       </section>
       <Footer />
