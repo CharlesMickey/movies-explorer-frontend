@@ -21,7 +21,7 @@ import getNumberMoviesRender from "../../utils/getNumberMoviesRender";
 function App() {
   const history = useHistory();
   let width = GetResize();
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const [isOpenBurger, setIsOpenBurger] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -39,19 +39,8 @@ function App() {
     return apiAuth
       .authorize({ email, password })
       .then((res) => {
-        console.log(res);
-        history.push("/movies");
-      })
-      .catch((err) => {
-        console.log(`${err}`);
-      });
-  }
-
-  function register({ name, email, password }) {
-    return apiAuth
-      .register({ name, email, password })
-      .then((res) => {
-        console.log(res);
+        localStorage.setItem("loggedIn", "true");
+        setIsLoggedIn(true);
         history.push("/movies");
       })
       .catch((err) => {
@@ -63,6 +52,27 @@ function App() {
     setIsLoggedIn(false);
     localStorage.clear();
     sessionStorage.clear();
+  }
+
+  React.useEffect(() => {
+    if (localStorage.loggedIn === "true") {
+      setIsLoggedIn(true);
+      localStorage.setItem("loggedIn", "true");
+    } else {
+      deleteData();
+    }
+  }, []);
+
+  function register({ name, email, password }) {
+    return apiAuth
+      .register({ name, email, password })
+      .then((res) => {
+        console.log(res);
+        history.push("/movies");
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      });
   }
 
   function signOut() {
@@ -81,6 +91,7 @@ function App() {
           const movies = res.map((movie) => {
             return { ...movie, img: `${BASE_URL}${movie.image.url}` };
           });
+          console.log(movies);
           localStorage.setItem("movies", JSON.stringify(movies));
         })
         .catch((err) => {

@@ -13,7 +13,18 @@ function AuthForm({
   margin,
   handleChangeInput,
   handleSubmit,
+  errors,
 }) {
+  const [visible, setVisible] = React.useState({name: false, email: false, password: false});
+  const errorClassName = !visible
+    ? `auth__input-error`
+    : `auth__input-error auth__input-error_visible`;
+
+  function onBlur(e) {
+    const name = e.target.name
+    setVisible({...visible, [name]: true});
+  }
+
   return (
     <section className="auth">
       <Link to="/">
@@ -26,6 +37,7 @@ function AuthForm({
             <label className="auth__label">
               <p className="auth__input-name">Имя</p>
               <input
+                onBlur={onBlur}
                 className="auth__input"
                 minLength={2}
                 maxLength={30}
@@ -34,21 +46,29 @@ function AuthForm({
                 onChange={handleChangeInput}
                 required
               />
-              <span className="auth__input-error" id="name-error">
-                Что-то пошло не так...
+              <span className={errorClassName} id="password-error">
+                {visible.name && errors.name}
               </span>
             </label>
           )}
           <label className="auth__label">
             <p className="auth__input-name">E-mail</p>
-            <input className="auth__input" onChange={handleChangeInput} type="email" name="email" required />
-            <span className="auth__input-error" id="email-error">
-              Что-то пошло не так...
+            <input
+              onBlur={onBlur}
+              className="auth__input"
+              onChange={handleChangeInput}
+              type="email"
+              name="email"
+              required
+            />
+            <span className={errorClassName} id="email-error">
+              {visible.email && errors.email}
             </span>
           </label>
           <label className="auth__label">
             <p className="auth__input-name">Пароль</p>
             <input
+            onBlur={onBlur}
               className="auth__input"
               minLength={8}
               type="password"
@@ -56,8 +76,8 @@ function AuthForm({
               onChange={handleChangeInput}
               required
             />
-            <span className="auth__input-error" id="password-error">
-              Что-то пошло не так...
+            <span className={errorClassName} id="password-error">
+              {visible.password && errors.password}
             </span>
           </label>
         </fieldset>

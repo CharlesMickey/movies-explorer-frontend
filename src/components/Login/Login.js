@@ -3,8 +3,7 @@ import AuthForm from "../AuthForm/AuthForm";
 import { useFormWithValidation } from "../validation/useFormWithValidation";
 
 function Login({ onLogin }) {
-  const { values, handleChange } = useFormWithValidation({});
-
+  const { values, handleChange, errors } = useFormWithValidation({});
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -23,6 +22,7 @@ function Login({ onLogin }) {
       signUp={false}
       handleChangeInput={handleChange}
       handleSubmit={handleSubmit}
+      errors={errors}
     />
   );
 }

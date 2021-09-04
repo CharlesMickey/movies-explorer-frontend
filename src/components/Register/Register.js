@@ -2,13 +2,12 @@ import React from "react";
 import AuthForm from "../AuthForm/AuthForm";
 import { useFormWithValidation } from "../validation/useFormWithValidation";
 
-function Register({register}) {
-  const { values, handleChange } = useFormWithValidation({});
-
+function Register({ register }) {
+  const { values, handleChange, errors } = useFormWithValidation({});
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(values)
+    console.log(values);
     register(values);
   }
   return (
@@ -22,6 +21,7 @@ function Register({register}) {
       signUp={true}
       handleChangeInput={handleChange}
       handleSubmit={handleSubmit}
+      errors={errors}
     />
   );
 }

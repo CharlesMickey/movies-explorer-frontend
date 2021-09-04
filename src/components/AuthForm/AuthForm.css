@@ -51,12 +51,19 @@
 }
 
 .auth__input-error {
+  max-width: 396px;
+  overflow: hidden;
   display: block;
   font-size: 10px;
   line-height: 12px;
   color: rgba(238, 52, 101, 1);
   margin: 6px 0 6px;
   opacity: 0;
+}
+
+.auth__input-error_visible {
+  visibility: visible;
+  opacity: 1;
 }
 
 .auth__submit {
@@ -114,5 +121,9 @@
   }
   .auth__sign-link {
     margin-left: 7px;
+  }
+
+  .auth__input-error {
+    max-width: 260px;
   }
 }
