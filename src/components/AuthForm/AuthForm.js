@@ -14,6 +14,7 @@ function AuthForm({
   handleChangeInput,
   handleSubmit,
   errors,
+  isValid,
 }) {
   const [visible, setVisible] = React.useState({name: false, email: false, password: false});
   const errorClassName = !visible
@@ -59,6 +60,7 @@ function AuthForm({
               onChange={handleChangeInput}
               type="email"
               name="email"
+              autoComplete="on"
               required
             />
             <span className={errorClassName} id="email-error">
@@ -70,6 +72,7 @@ function AuthForm({
             <input
             onBlur={onBlur}
               className="auth__input"
+              autoComplete="current-password"
               minLength={8}
               type="password"
               name="password"
@@ -83,9 +86,10 @@ function AuthForm({
         </fieldset>
         <button
           type="submit"
+          disabled={!isValid}
           value="Отправить на сервер"
           id="auth__submit"
-          className={`auth__submit ${margin}`}
+          className={isValid ? `auth__submit ${margin}` : `auth__submit_disabled auth__submit ${margin}`}
         >
           {buttonName}
         </button>

@@ -4,6 +4,7 @@ import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import Login from "../Login/Login";
 import * as apiAuth from "../../utils/apiAuth.js";
 import * as MoviesApi from "../../utils/MoviesApi";
+import * as MainApi from "../../utils/MainApi";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import NotFound from "../NotFound/NotFound";
@@ -13,7 +14,6 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import filterMovies from "../../utils/filterMovies";
-import Preloader from "../Preloader/Preloader";
 import { BASE_URL } from "../../utils/constants";
 import GetResize from "../../utils/GetResize";
 import getNumberMoviesRender from "../../utils/getNumberMoviesRender";
@@ -36,6 +36,7 @@ function App() {
   const [isNumberOfMoviesToAdd, setIsNumberOfMoviesToAdd] = React.useState(0);
 
   function onLogin({ email, password }) {
+    setIsLoading(true);
     return apiAuth
       .authorize({ email, password })
       .then((res) => {
@@ -45,7 +46,8 @@ function App() {
       })
       .catch((err) => {
         console.log(`${err}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function deleteData() {
@@ -63,25 +65,53 @@ function App() {
     }
   }, []);
 
-  function register({ name, email, password }) {
-    return apiAuth
-      .register({ name, email, password })
-      .then((res) => {
-        console.log(res);
-        history.push("/movies");
-      })
+  React.useEffect(() => {
+    setIsLoading(true);
+    if (localStorage.loggedIn === "true") {
+      return MainApi.getUserInfo()
+        .then((res) => {
+          setCurrentUser(res);
+        })
+        .catch((err) => console.log(`${err}`))
+        .finally(() => setIsLoading(false));
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
+
+  function updateUserInfo({ name, email }) {
+    return MainApi.updateUserInfo({ name, email })
+      .then((res) => setCurrentUser(res))
       .catch((err) => {
         console.log(`${err}`);
       });
   }
 
-  function signOut() {
+  function register({ name, email, password }) {
+    setIsLoading(true);
     return apiAuth
-      .signOut()
-      .then((res) => deleteData())
+      .register({ name, email, password })
+      .then(() => {
+        onLogin({ email, password });
+      })
       .catch((err) => {
         console.log(`${err}`);
-      });
+      })
+      .finally(() => setIsLoading(false));
+  }
+
+  function signOut() {
+    setIsLoading(true);
+    return apiAuth
+      .signOut()
+      .then((res) => {
+        deleteData();
+        history.push("/");
+      })
+      .catch((err) => {
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   React.useEffect(() => {
@@ -91,14 +121,13 @@ function App() {
           const movies = res.map((movie) => {
             return { ...movie, img: `${BASE_URL}${movie.image.url}` };
           });
-          console.log(movies);
           localStorage.setItem("movies", JSON.stringify(movies));
         })
         .catch((err) => {
           console.log(`${err}`);
         });
     }
-  }, []);
+  }, [isLoggedIn]);
 
   function notFoundMovies(filteredMovies) {
     if (!filteredMovies.length) {
@@ -173,19 +202,27 @@ function App() {
         onKeyDown={closeBurgerEsc}
       >
         <Switch>
-          <Route exact path="/signin">
-            <Login onLogin={onLogin} />
-          </Route>
-          <Route exact path="/signup">
-            <Register register={register} />
-          </Route>
           <Route exact path="/">
             <Main isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
           </Route>
+          <Route path="/signin">
+            {isLoggedIn ? (
+              <Redirect to="/movies" />
+            ) : (
+              <Login isLoading={isLoading} onLogin={onLogin} />
+            )}
+          </Route>
+          <Route path="/signup">
+            {isLoggedIn ? (
+              <Redirect to="/movies" />
+            ) : (
+              <Register isLoading={isLoading} register={register} />
+            )}
+          </Route>
+
           <ProtectedRoute
             isLoggedIn={isLoggedIn}
             isLoading={isLoading}
-            exact
             path="/movies"
             showMovies={showMovies}
             handelChangeCheckbox={handelChangeCheckbox}
@@ -197,29 +234,27 @@ function App() {
             isNumberOfMoviesToRender={isNumberOfMoviesToRender}
             moreMoviesRender={setIsNumberOfMoviesToRender}
           />
-
-          <Route path="/saved-movies">
-            <SavedMovies
-              isLoggedIn={isLoggedIn}
-              isLoading={isLoading}
-              notFound={isNotFound}
-              handelOpenBurger={handelOpenBurger}
-            />
-          </Route>
-          <Route path="/profile">
-            <Profile
-              isLoggedIn={isLoggedIn}
-              signOut={signOut}
-              handelOpenBurger={handelOpenBurger}
-            />
-          </Route>
+          <ProtectedRoute
+            path="/saved-movies"
+            component={SavedMovies}
+            isLoggedIn={isLoggedIn}
+            isLoading={isLoading}
+            notFound={isNotFound}
+            handelOpenBurger={handelOpenBurger}
+          />
+          <ProtectedRoute
+            path="/profile"
+            isLoading={isLoading}
+            component={Profile}
+            isLoggedIn={isLoggedIn}
+            signOut={signOut}
+            handelOpenBurger={handelOpenBurger}
+            updateUserInfo={updateUserInfo}
+          />
           <Route path="*">
-            <NotFound />
+            <NotFound history={history} />
           </Route>
         </Switch>
-        <Route>
-          {isLoggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}
-        </Route>
         <BurgerMenu onClose={handelCloseBurger} isOpen={isOpenBurger} />
       </div>
     </CurrentUserContext.Provider>

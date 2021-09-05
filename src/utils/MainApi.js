@@ -27,3 +27,12 @@ export const getUserInfo = () => {
     credentials: "include",
   }).then((res) => checkResponse(res));
 };
+
+export const updateUserInfo = ({name, email}) => {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "PATCH",
+     headers,
+    credentials: "include",
+    body: JSON.stringify({name, email})
+  }).then((res) => checkResponse(res) )
+}

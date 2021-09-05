@@ -1,9 +1,14 @@
 import React from "react";
 import AuthForm from "../AuthForm/AuthForm";
+import Preloader from "../Preloader/Preloader";
 import { useFormWithValidation } from "../validation/useFormWithValidation";
 
-function Register({ register }) {
-  const { values, handleChange, errors } = useFormWithValidation({});
+function Register({ register, isLoading }) {
+  const { values, handleChange, errors, isValid } = useFormWithValidation({
+    name: "",
+    email: "",
+    password: "",
+  });
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -11,18 +16,26 @@ function Register({ register }) {
     register(values);
   }
   return (
-    <AuthForm
-      greeting={"Добро пожаловать"}
-      authLink="Войти"
-      linkPath="/signin"
-      signText="Уже зарегистрированы?"
-      buttonName="Зарегистрироваться"
-      margin=""
-      signUp={true}
-      handleChangeInput={handleChange}
-      handleSubmit={handleSubmit}
-      errors={errors}
-    />
+    <>
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <AuthForm
+          greeting={"Добро пожаловать"}
+          authLink="Войти"
+          linkPath="/signin"
+          signText="Уже зарегистрированы?"
+          buttonName="Зарегистрироваться"
+          margin=""
+          signUp={true}
+          handleChangeInput={handleChange}
+          handleSubmit={handleSubmit}
+          errors={errors}
+          isValid={isValid}
+          isLoading={isLoading}
+        />
+      )}
+    </>
   );
 }
 

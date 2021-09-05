@@ -81,6 +81,12 @@
   cursor: pointer;
 }
 
+.auth__submit_disabled {
+  background: rgb(240, 240, 240);
+  cursor: auto;
+  color: rgba(194, 194, 194, 1);
+}
+
 .auth__sign {
   margin: 0;
   text-align: center;
