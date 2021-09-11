@@ -1,11 +1,7 @@
 export const BASE_URL = "https://api.charlesmickey.nomoredomains.rocks";
 
 export const checkResponse = (response) => {
-  return response.ok
-    ? response.json()
-    : Promise.reject(
-        new Error(`Ошибка ${response.status}: ${response.statusText}`)
-      );
+  return response.ok ? response.json() : Promise.reject(response.status);
 };
 
 const headers = {

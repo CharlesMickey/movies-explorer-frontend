@@ -16,7 +16,7 @@ function Movies({
   handelOpenBurger,
   isNumberOfMoviesToAdd,
   isNumberOfMoviesToRender,
-  moreMoviesRender
+  moreMoviesRender,
 }) {
   return (
     <>

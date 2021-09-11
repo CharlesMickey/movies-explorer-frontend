@@ -1,6 +1,6 @@
 import React from "react";
 
-function NotFound({history}) {
+function NotFound({ history }) {
   return (
     <section className="not-found">
       <h1 className="not-found__title">404</h1>

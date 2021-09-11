@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../images/imgs_svg/logo.svg";
 import Navigation from "../Navigation/Navigation";
 
-function Header({isLoggedIn, handelOpenBurger, headerColor }) {
+function Header({ isLoggedIn, handelOpenBurger, headerColor }) {
   return (
     <header className={`header ${headerColor || ""}`}>
       <Link to="/">

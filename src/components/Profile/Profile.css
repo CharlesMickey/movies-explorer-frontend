@@ -37,7 +37,7 @@
   line-height: 13px;
   border-bottom: 1px solid rgba(232, 232, 232, 1);
   padding-bottom: 16px;
-  margin-bottom: 17px;
+  margin-bottom: 0px;
 }
 
 .profile__input {
@@ -56,13 +56,18 @@
 }
 
 .profile__button {
-  margin: 220px 0 16px;
+  margin: 196px 0 16px;
   font-size: 13px;
   line-height: 16px;
   padding: 0;
   border: none;
   background-color: transparent;
   cursor: pointer;
+}
+
+.profile__button:disabled {
+  cursor: default;
+  color: rgba(194, 194, 194, 1);
 }
 
 .profile__button-out {
@@ -87,8 +92,9 @@
   }
 
   .profile__button {
-    margin-top: 210px;
+    margin-top: 186px;
   }
+
   .profile__button-out {
     margin-bottom: 33px;
   }
@@ -103,7 +109,7 @@
     margin-bottom: 80px;
   }
   .profile__button {
-    margin-top: calc((100vh - 401.2px));
+    margin-top: calc((100vh - 408.2px));
     font-size: 12px;
     line-height: 15px;
   }

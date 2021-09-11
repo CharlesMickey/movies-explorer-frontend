@@ -31,7 +31,7 @@ function MoviesCardList({
             <MoviesCard
               duration={card.duration}
               trailerLink={card.trailerLink}
-              img={card.img}
+              img={card.img || card.image}
               name={card.nameRU}
               key={card.id || card._id}
               cardLikeButtonClassName={cardLikeButtonClassName}

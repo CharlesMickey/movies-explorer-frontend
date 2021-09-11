@@ -11,17 +11,20 @@ import NotFound from "../NotFound/NotFound";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import SavedMovies from "../SavedMovies/SavedMovies";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import filterMovies from "../../utils/filterMovies";
 import { BASE_URL } from "../../utils/constants";
 import GetResize from "../../utils/GetResize";
 import getNumberMoviesRender from "../../utils/getNumberMoviesRender";
+import showErrorMsg from "../../utils/showErrorMsg";
+import { MESSAGE } from "../../utils/constants";
 
 function App() {
   const history = useHistory();
   let width = GetResize();
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(undefined);
   const [isOpenBurger, setIsOpenBurger] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
 
@@ -35,16 +38,56 @@ function App() {
     React.useState(0);
   const [isNumberOfMoviesToAdd, setIsNumberOfMoviesToAdd] = React.useState(0);
 
+  const [isInfoTooltip, setInfoTooltip] = React.useState(false);
+  const [isInfoTooltipOk, setInfoTooltipOk] = React.useState(false);
+  const [isMessageForUser, setMessageForUser] = React.useState("");
+
+  function getMessageForUser(err) {
+    setInfoTooltipOk(false);
+    setInfoTooltip(true);
+    setMessageForUser(showErrorMsg(err));
+  }
+
+  function getUserInfo() {
+    return MainApi.getUserInfo()
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        getMessageForUser(err);
+        console.log(`${err}`);
+      });
+  }
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    if (localStorage.loggedIn === "true") {
+      return MainApi.getUserInfo()
+        .then((res) => {
+          setCurrentUser(res);
+        })
+        .catch((err) => {
+          getMessageForUser(err);
+          console.log(`${err}`);
+        })
+        .finally(() => setIsLoading(false));
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
+
   function onLogin({ email, password }) {
     setIsLoading(true);
     return apiAuth
       .authorize({ email, password })
       .then((res) => {
         localStorage.setItem("loggedIn", "true");
+        getUserInfo();
         setIsLoggedIn(true);
         history.push("/movies");
       })
       .catch((err) => {
+        getMessageForUser(err);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
@@ -63,26 +106,18 @@ function App() {
     } else {
       deleteData();
     }
-  }, []);
-
-  React.useEffect(() => {
-    setIsLoading(true);
-    if (localStorage.loggedIn === "true") {
-      return MainApi.getUserInfo()
-        .then((res) => {
-          setCurrentUser(res);
-        })
-        .catch((err) => console.log(`${err}`))
-        .finally(() => setIsLoading(false));
-    } else {
-      setIsLoading(false);
-    }
-  }, []);
+  }, [isLoggedIn]);
 
   function updateUserInfo({ name, email }) {
     return MainApi.updateUserInfo({ name, email })
-      .then((res) => setCurrentUser(res))
+      .then((res) => {
+        setInfoTooltipOk(true);
+        setInfoTooltip(true);
+        setMessageForUser(MESSAGE.SUCCESSFUL_UPDATE);
+        setCurrentUser(res);
+      })
       .catch((err) => {
+        getMessageForUser(err);
         console.log(`${err}`);
       });
   }
@@ -95,6 +130,7 @@ function App() {
         onLogin({ email, password });
       })
       .catch((err) => {
+        getMessageForUser(err);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
@@ -109,6 +145,7 @@ function App() {
         history.push("/");
       })
       .catch((err) => {
+        getMessageForUser(err);
         console.log(`${err}`);
       })
       .finally(() => setIsLoading(false));
@@ -124,6 +161,7 @@ function App() {
           localStorage.setItem("movies", JSON.stringify(movies));
         })
         .catch((err) => {
+          getMessageForUser(err);
           console.log(`${err}`);
         });
     }
@@ -173,19 +211,20 @@ function App() {
     setIsOpenBurger(true);
   }
 
-  function handelCloseBurger() {
+  function closeAllPopups() {
     setIsOpenBurger(false);
+    setInfoTooltip(false);
   }
 
   function closeBurgerClickOnOverlay(e) {
-    if (e.target.matches(".burger-menu")) {
-      handelCloseBurger();
+    if (e.target.matches(".burger-menu") || e.target.matches(".popup")) {
+      closeAllPopups();
     }
   }
 
   function closeBurgerEsc(e) {
     if (e.key === "Escape") {
-      handelCloseBurger();
+      closeAllPopups();
     }
   }
 
@@ -219,7 +258,6 @@ function App() {
               <Register isLoading={isLoading} register={register} />
             )}
           </Route>
-
           <ProtectedRoute
             isLoggedIn={isLoggedIn}
             isLoading={isLoading}
@@ -251,11 +289,17 @@ function App() {
             handelOpenBurger={handelOpenBurger}
             updateUserInfo={updateUserInfo}
           />
-          <Route path="*">
+          <Route path="/">
             <NotFound history={history} />
           </Route>
         </Switch>
-        <BurgerMenu onClose={handelCloseBurger} isOpen={isOpenBurger} />
+        <BurgerMenu onClose={closeAllPopups} isOpen={isOpenBurger} />
+        <InfoTooltip
+          onClose={closeAllPopups}
+          isOpen={isInfoTooltip}
+          isInfoTooltipOk={isInfoTooltipOk}
+          message={isMessageForUser}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
