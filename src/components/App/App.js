@@ -29,10 +29,13 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
 
   const [showMovies, setShowMovies] = React.useState([]);
+  const [showSavedMovies, setShowSavedMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isShortMovies, setIsShortMovies] = React.useState(false);
+  const [isShortSavedMovies, setIsShortSavedMovies] = React.useState(false);
 
   const [isNotFound, setIsNotFound] = React.useState(false);
+  const [isNotFoundSaved, setIsNotFoundSaved] = React.useState(false);
 
   const [isNumberOfMoviesToRender, setIsNumberOfMoviesToRender] =
     React.useState(0);
@@ -96,7 +99,6 @@ function App() {
   function deleteData() {
     setIsLoggedIn(false);
     localStorage.clear();
-    sessionStorage.clear();
   }
 
   React.useEffect(() => {
@@ -141,6 +143,8 @@ function App() {
     return apiAuth
       .signOut()
       .then((res) => {
+        setShowMovies([]);
+        setShowSavedMovies([]);
         deleteData();
         history.push("/");
       })
@@ -152,20 +156,44 @@ function App() {
   }
 
   React.useEffect(() => {
+    setIsLoading(true);
     if (!localStorage.movies) {
       return MoviesApi.getMovies()
         .then((res) => {
           const movies = res.map((movie) => {
-            return { ...movie, img: `${BASE_URL}${movie.image.url}` };
+            return {
+              ...movie,
+              image: `${BASE_URL}${movie.image.url}`,
+              trailer: movie.trailerLink,
+              movieId: movie.id,
+              thumbnail: `${BASE_URL}${movie.image.formats.thumbnail.url}`,
+            };
           });
           localStorage.setItem("movies", JSON.stringify(movies));
         })
         .catch((err) => {
           getMessageForUser(err);
           console.log(`${err}`);
-        });
+        })
+        .finally(() => setIsLoading(false));
     }
   }, [isLoggedIn]);
+
+  function getSavedMovies() {
+    setIsLoading(true);
+    return MainApi.getSavedMovies()
+      .then((res) => {
+        const movies = res.map((movie) => {
+          return { ...movie };
+        });
+        localStorage.setItem("savedMovies", JSON.stringify(movies));
+      })
+      .catch((err) => {
+        getMessageForUser(err);
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
+  }
 
   function notFoundMovies(filteredMovies) {
     if (!filteredMovies.length) {
@@ -175,22 +203,39 @@ function App() {
     }
   }
 
-  function handleSearchForMovies(req) {
-    const filteredMovies = filterMovies(
-      JSON.parse(localStorage.movies),
-      req,
-      isShortMovies
-    );
-    notFoundMovies(filteredMovies);
+  function notFoundSavedMovies(filteredMovies) {
+    if (!filteredMovies.length) {
+      setIsNotFoundSaved(true);
+    } else {
+      setIsNotFoundSaved(false);
+    }
+  }
 
-    return setShowMovies(filteredMovies);
+  function handleSearchForMovies(req, place) {
+    if (place === localStorage.movies) {
+      const filteredMovies = filterMovies(
+        JSON.parse(place),
+        req,
+        isShortMovies
+      );
+      notFoundMovies(filteredMovies);
+      return setShowMovies(filteredMovies);
+    } else {
+      const filteredMovies = filterMovies(
+        JSON.parse(place),
+        req,
+        isShortSavedMovies
+      );
+      notFoundSavedMovies(filteredMovies);
+      return setShowSavedMovies(filteredMovies);
+    }
   }
 
   React.useEffect(() => {
-    if (localStorage.movies && sessionStorage.request) {
+    if (localStorage.movies && localStorage.request) {
       const filteredMovies = filterMovies(
         JSON.parse(localStorage.movies),
-        sessionStorage.request,
+        localStorage.request,
         isShortMovies
       );
       notFoundMovies(filteredMovies);
@@ -198,6 +243,19 @@ function App() {
     }
     return;
   }, [isShortMovies]);
+
+  React.useEffect(() => {
+    if (localStorage.savedMovies && localStorage.requestSaved) {
+      const filteredMovies = filterMovies(
+        JSON.parse(localStorage.savedMovies),
+        localStorage.requestSaved,
+        isShortSavedMovies
+      );
+      notFoundSavedMovies(filteredMovies);
+      return setShowSavedMovies(filteredMovies);
+    }
+    return;
+  }, [isShortSavedMovies]);
 
   React.useEffect(() => {
     const { numberOfMoviesToRender, numberOfMoviesToAdd } =
@@ -228,8 +286,39 @@ function App() {
     }
   }
 
-  function handelChangeCheckbox() {
+  function handelChangeCheckboxMovies() {
     setIsShortMovies(!isShortMovies);
+  }
+
+  function handelChangeCheckboxSavedMovies() {
+    setIsShortSavedMovies(!isShortSavedMovies);
+  }
+
+  function deleteMovie(movieId) {
+    return MainApi.deleteMovie(movieId)
+      .then(() => {
+        const movies = showSavedMovies.filter((movie) => movie._id !== movieId);
+        setShowSavedMovies(movies);
+        getSavedMovies();
+      })
+      .catch((err) => {
+        getMessageForUser(err);
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
+  }
+
+  function createMovie(movie) {
+    return MainApi.createMovie(movie)
+      .then((movie) => {
+        getSavedMovies();
+        setShowSavedMovies([movie, ...showSavedMovies]);
+      })
+      .catch((err) => {
+        getMessageForUser(err);
+        console.log(`${err}`);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   return (
@@ -263,7 +352,7 @@ function App() {
             isLoading={isLoading}
             path="/movies"
             showMovies={showMovies}
-            handelChangeCheckbox={handelChangeCheckbox}
+            handelChangeCheckbox={handelChangeCheckboxMovies}
             component={Movies}
             getMovies={handleSearchForMovies}
             handelOpenBurger={handelOpenBurger}
@@ -271,14 +360,24 @@ function App() {
             isNumberOfMoviesToAdd={isNumberOfMoviesToAdd}
             isNumberOfMoviesToRender={isNumberOfMoviesToRender}
             moreMoviesRender={setIsNumberOfMoviesToRender}
+            isShortMovies={isShortMovies}
+            showSavedMovies={showSavedMovies}
+            createMovie={createMovie}
+            deleteMovie={deleteMovie}
           />
           <ProtectedRoute
             path="/saved-movies"
             component={SavedMovies}
             isLoggedIn={isLoggedIn}
             isLoading={isLoading}
-            notFound={isNotFound}
             handelOpenBurger={handelOpenBurger}
+            getSavedMovies={getSavedMovies}
+            getMovies={handleSearchForMovies}
+            handelChangeCheckbox={handelChangeCheckboxSavedMovies}
+            showSavedMovies={showSavedMovies}
+            notFound={isNotFoundSaved}
+            isShortMovies={isShortSavedMovies}
+            deleteMovie={deleteMovie}
           />
           <ProtectedRoute
             path="/profile"

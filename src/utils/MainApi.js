@@ -31,3 +31,32 @@ export const updateUserInfo = ({ name, email }) => {
     body: JSON.stringify({ name, email }),
   }).then((res) => checkResponse(res));
 };
+
+export const deleteMovie = (movieId) => {
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
+    method: "DELETE",
+    headers,
+    credentials: "include",
+  }).then((res) => checkResponse(res));
+};
+
+export const createMovie = (movie) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: "POST",
+    headers,
+    credentials: "include",
+    body: JSON.stringify({
+      country: movie.country || "Нет данных",
+      director: movie.director  || "Нет данных",
+      duration: movie.duration  || 0,
+      year: movie.year  || "Нет данных",
+      description: movie.description  || "Нет данных",
+      image: movie.image,
+      trailer: movie.trailer  || "Нет данных",
+      thumbnail: movie.thumbnail  || "Нет данных",
+      movieId: movie.movieId,
+      nameRU: movie.nameRU  || "Нет данных",
+      nameEN: movie.nameEN  || "Нет данных",
+    }),
+  }).then((res) => checkResponse(res));
+};

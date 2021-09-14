@@ -2,9 +2,13 @@ import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList({
+  createMovie,
+  path,
+  deleteMovie,
   movies,
   notFound,
   showMovies,
+  showSavedMovies,
   cardLikeButtonClassName,
   isNumberOfMoviesToAdd,
   isNumberOfMoviesToRender,
@@ -29,10 +33,11 @@ function MoviesCardList({
         <ul className={classUl}>
           {moviesRender.map((card) => (
             <MoviesCard
-              duration={card.duration}
-              trailerLink={card.trailerLink}
-              img={card.img || card.image}
-              name={card.nameRU}
+              showSavedMovies={showSavedMovies}
+              createMovie={createMovie}
+              card={card}
+              path={path}
+              deleteMovie={deleteMovie}
               key={card.id || card._id}
               cardLikeButtonClassName={cardLikeButtonClassName}
             />

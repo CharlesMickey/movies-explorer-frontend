@@ -2,7 +2,13 @@ import React from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 import { useFormWithValidation } from "../validation/useFormWithValidation";
 
-function SearchForm({ savedMovies, handelChangeCheckbox, getMovies }) {
+function SearchForm({
+  isShortMovies,
+  savedMovies,
+  handelChangeCheckbox,
+  getMovies,
+  place,
+}) {
   const { values, handleChange, isValid } = useFormWithValidation({});
   const [isError, setIsError] = React.useState(false);
   const styleError = isError
@@ -15,6 +21,7 @@ function SearchForm({ savedMovies, handelChangeCheckbox, getMovies }) {
   }
 
   function onSubmit(e) {
+    setIsError(false);
     if (e) {
       e.preventDefault();
     }
@@ -22,11 +29,11 @@ function SearchForm({ savedMovies, handelChangeCheckbox, getMovies }) {
     if (!isValid) {
       setIsError(true);
     } else if (!savedMovies) {
-      setIsError(false);
-      getMovies(values.input);
-      sessionStorage.setItem("request", values.input);
+      getMovies(values.input, place);
+      localStorage.setItem("request", values.input);
     } else if (savedMovies) {
-      console.log("Сасайка");
+      localStorage.setItem("requestSaved", values.input);
+      return getMovies(values.input, place);
     }
     return;
   }
@@ -51,7 +58,10 @@ function SearchForm({ savedMovies, handelChangeCheckbox, getMovies }) {
             className="search__submit link"
           />
         </div>
-        <FilterCheckbox handelChangeCheckbox={handelChangeCheckbox} />
+        <FilterCheckbox
+          isShortMovies={isShortMovies}
+          handelChangeCheckbox={handelChangeCheckbox}
+        />
       </form>
     </section>
   );

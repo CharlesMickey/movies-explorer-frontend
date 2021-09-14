@@ -6,44 +6,42 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies({ notFound, isLoading, isLoggedIn, handelOpenBurger }) {
-  const showMovies = [
-    {
-      id: 10,
-      nameRU: "Фильм: Пи Джей Харви: A dog called money",
-      duration: 80,
-      img: "https://api.nomoreparties.co/uploads/maxresdefault_505b3fa578.jpeg",
-    },
-    {
-      id: 5,
-      nameRU: "Allison",
-      duration: 35,
-      img: "https://api.nomoreparties.co/uploads/maxresdefault_505b3fa578.jpeg",
-    },
-    {
-      id: 3,
-      nameRU: "James",
-      duration: 46,
-      img: "https://api.nomoreparties.co/uploads/maxresdefault_505b3fa578.jpeg",
-    },
-    {
-      id: 11,
-      nameRU: "Gregory",
-      duration: 24,
-      img: "https://api.nomoreparties.co/uploads/maxresdefault_505b3fa578.jpeg",
-    },
-  ];
+function SavedMovies({
+  deleteMovie,
+  handelChangeCheckbox,
+  isShortMovies,
+  getMovies,
+  getSavedMovies,
+  notFound,
+  isLoading,
+  isLoggedIn,
+  handelOpenBurger,
+  showSavedMovies,
+}) {
+  React.useEffect(() => {
+    getSavedMovies();
+  }, [showSavedMovies]);
+
   return (
     <>
       <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
       <section className="saved-movies">
-        <SearchForm savedMovies={true} />
+        <SearchForm
+          handelChangeCheckbox={handelChangeCheckbox}
+          isShortMovies={isShortMovies}
+          savedMovies={true}
+          place={localStorage.savedMovies}
+          getMovies={getMovies}
+        />
         {!notFound && isLoading ? (
           <Preloader />
         ) : (
           <MoviesCardList
-            isNumberOfMoviesToRender={showMovies.length}
-            showMovies={showMovies}
+            path="savedMovies"
+            deleteMovie={deleteMovie}
+            notFound={notFound}
+            isNumberOfMoviesToRender={showSavedMovies.length}
+            showMovies={showSavedMovies}
             cardLikeButtonClassName="element__like element__disabled"
           />
         )}

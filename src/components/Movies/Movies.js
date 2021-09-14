@@ -7,6 +7,8 @@ import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
 function Movies({
+  showSavedMovies,
+  createMovie,
   notFound,
   handelChangeCheckbox,
   isLoading,
@@ -17,6 +19,8 @@ function Movies({
   isNumberOfMoviesToAdd,
   isNumberOfMoviesToRender,
   moreMoviesRender,
+  isShortMovies,
+  deleteMovie,
 }) {
   return (
     <>
@@ -25,11 +29,17 @@ function Movies({
         <SearchForm
           handelChangeCheckbox={handelChangeCheckbox}
           getMovies={getMovies}
+          place={localStorage.movies}
+          isShortMovies={isShortMovies}
         />
         {isLoading ? (
           <Preloader />
         ) : (
           <MoviesCardList
+            deleteMovie={deleteMovie}
+            path="movies"
+            showSavedMovies={showSavedMovies}
+            createMovie={createMovie}
             movies={true}
             isNumberOfMoviesToAdd={isNumberOfMoviesToAdd}
             isNumberOfMoviesToRender={isNumberOfMoviesToRender}

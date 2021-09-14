@@ -1,6 +1,6 @@
 import React from "react";
 
-function FilterCheckbox({ handelChangeCheckbox }) {
+function FilterCheckbox({isShortMovies, handelChangeCheckbox }) {
   function handleChange() {
     handelChangeCheckbox();
   }
@@ -8,6 +8,7 @@ function FilterCheckbox({ handelChangeCheckbox }) {
     <label className="check">
       <input
         onChange={handleChange}
+        checked={isShortMovies}
         type="checkbox"
         name="checkbox"
         className="invisible-checkbox"
