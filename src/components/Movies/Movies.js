@@ -7,7 +7,7 @@ import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
 function Movies({
-  showSavedMovies,
+  isAllSavedMovies,
   createMovie,
   notFound,
   handelChangeCheckbox,
@@ -38,7 +38,7 @@ function Movies({
           <MoviesCardList
             deleteMovie={deleteMovie}
             path="movies"
-            showSavedMovies={showSavedMovies}
+            isAllSavedMovies={isAllSavedMovies}
             createMovie={createMovie}
             movies={true}
             isNumberOfMoviesToAdd={isNumberOfMoviesToAdd}

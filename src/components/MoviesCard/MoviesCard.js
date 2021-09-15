@@ -2,7 +2,7 @@ import React from "react";
 import parserDuration from "../../utils/parserDuration.js";
 
 function MoviesCard({
-  showSavedMovies,
+  isAllSavedMovies,
   card,
   createMovie,
   path,
@@ -12,7 +12,7 @@ function MoviesCard({
   const [isLoading, setIsLoading] = React.useState(false);
   const movie =
     path === "movies"
-      ? showSavedMovies.find((movie) => movie.movieId === card.movieId)
+      ? isAllSavedMovies.find((movie) => movie.movieId === card.movieId)
       : false;
 
   function handelClick() {

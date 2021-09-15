@@ -30,6 +30,7 @@ function App() {
 
   const [showMovies, setShowMovies] = React.useState([]);
   const [showSavedMovies, setShowSavedMovies] = React.useState([]);
+  const [isAllSavedMovies, setAllSavedMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isShortMovies, setIsShortMovies] = React.useState(false);
   const [isShortSavedMovies, setIsShortSavedMovies] = React.useState(false);
@@ -61,6 +62,22 @@ function App() {
         console.log(`${err}`);
       });
   }
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      return MainApi.getSavedMovies()
+        .then((res) => {
+          const movies = res.map((movie) => {
+            return { ...movie };
+          });
+          setAllSavedMovies(movies);
+          localStorage.setItem("savedMovies", JSON.stringify(movies));
+        })
+        .catch((err) => {
+          console.log(`${err}`);
+        });
+    }
+  }, [isLoggedIn]);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -186,6 +203,7 @@ function App() {
         const movies = res.map((movie) => {
           return { ...movie };
         });
+        setAllSavedMovies(movies);
         localStorage.setItem("savedMovies", JSON.stringify(movies));
       })
       .catch((err) => {
@@ -361,9 +379,9 @@ function App() {
             isNumberOfMoviesToRender={isNumberOfMoviesToRender}
             moreMoviesRender={setIsNumberOfMoviesToRender}
             isShortMovies={isShortMovies}
-            showSavedMovies={showSavedMovies}
             createMovie={createMovie}
             deleteMovie={deleteMovie}
+            isAllSavedMovies={isAllSavedMovies}
           />
           <ProtectedRoute
             path="/saved-movies"

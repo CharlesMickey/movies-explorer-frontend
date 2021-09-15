@@ -12,7 +12,6 @@ function Register({ register, isLoading }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(values);
     register(values);
   }
   return (

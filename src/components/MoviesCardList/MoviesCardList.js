@@ -2,6 +2,7 @@ import React from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList({
+  isAllSavedMovies,
   createMovie,
   path,
   deleteMovie,
@@ -33,6 +34,7 @@ function MoviesCardList({
         <ul className={classUl}>
           {moviesRender.map((card) => (
             <MoviesCard
+            isAllSavedMovies={isAllSavedMovies}
               showSavedMovies={showSavedMovies}
               createMovie={createMovie}
               card={card}

@@ -18,10 +18,6 @@ function SavedMovies({
   handelOpenBurger,
   showSavedMovies,
 }) {
-  React.useEffect(() => {
-    getSavedMovies();
-  }, [showSavedMovies]);
-
   return (
     <>
       <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
