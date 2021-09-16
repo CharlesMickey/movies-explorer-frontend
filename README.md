@@ -1,6 +1,6 @@
 # movies-explorer-frontend
 
-domain: https://charlesmickey.nomoredomains.rocks/
+domain: https://charlesmickey.nomoredomains.club/
 
 ip: 193.32.219.52
 
