@@ -56,6 +56,10 @@
   background-image: url(../../images/imgs_svg/delete_film.svg);
 }
 
+.element__like_loading {
+  background: url(../../images/Loading.gif) center no-repeat;
+}
+
 .element__duration {
   margin: 6px 0 0;
   color: rgba(160, 160, 160, 1);
@@ -63,7 +67,7 @@
   line-height: 13px;
 }
 
-@media screen and (max-width: 989px) {
+@media screen and (max-width: 990px) {
   .element {
     height: 269px;
   }

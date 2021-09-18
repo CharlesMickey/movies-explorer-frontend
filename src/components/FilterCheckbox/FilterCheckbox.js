@@ -1,9 +1,18 @@
 import React from "react";
 
-function FilterCheckbox() {
+function FilterCheckbox({isShortMovies, handelChangeCheckbox }) {
+  function handleChange() {
+    handelChangeCheckbox();
+  }
   return (
     <label className="check">
-      <input type="checkbox" name="checkbox" className="invisible-checkbox" />
+      <input
+        onChange={handleChange}
+        checked={isShortMovies}
+        type="checkbox"
+        name="checkbox"
+        className="invisible-checkbox"
+      />
       <span className="visible-checkbox" />
       Короткометражки
     </label>

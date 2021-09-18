@@ -63,8 +63,8 @@
   .about-me {
     max-height: 514px;
     padding-top: 90px;
-    padding-left:  50px;
-    padding-right:  50px;
+    padding-left: 50px;
+    padding-right: 50px;
   }
 
   .about-me__info-container {
@@ -104,8 +104,8 @@
     flex-direction: column;
     max-height: 833px;
     padding-top: 70px;
-    padding-left:  14px;
-    padding-right:  14px;
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
   .about-me__info {
@@ -139,7 +139,7 @@
   }
 
   .about-me__social-list {
-    margin-top: 40px
+    margin-top: 40px;
   }
 
   .about-me__social-item {
@@ -170,5 +170,4 @@
     width: 292px;
     height: 352px;
   }
-
 }

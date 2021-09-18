@@ -18,6 +18,13 @@
   padding: 50px 0 80px;
 }
 
+.elements__not-found {
+  text-align: center;
+  font-size: 14px;
+  line-height: 16px;
+  color: rgba(238, 52, 101, 1);
+}
+
 .elements__more-button {
   padding: 0;
   height: 36px;
@@ -30,14 +37,14 @@
   border-radius: 6px;
 }
 
-@media screen and (max-width: 989px) {
+@media screen and (max-width: 990px) {
   .elements__list {
     grid-template-columns: repeat(auto-fit, 339px);
     gap: 30px 30px;
   }
 }
 
-@media screen and (max-width: 847px) {
+@media screen and (max-width: 848px) {
   .elements__list {
     justify-content: center;
     padding-left: 30px;

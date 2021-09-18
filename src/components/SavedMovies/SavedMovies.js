@@ -6,17 +6,39 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 
-function SavedMovies({ handelOpenBurger }) {
-  const isLoading = true;
+function SavedMovies({
+  deleteMovie,
+  handelChangeCheckbox,
+  isShortMovies,
+  getMovies,
+  notFound,
+  isLoading,
+  isLoggedIn,
+  handelOpenBurger,
+  showSavedMovies,
+}) {
   return (
     <>
-      <Header handelOpenBurger={handelOpenBurger} />
+      <Header isLoggedIn={isLoggedIn} handelOpenBurger={handelOpenBurger} />
       <section className="saved-movies">
-        <SearchForm />
-        {isLoading ? (
+        <SearchForm
+          handelChangeCheckbox={handelChangeCheckbox}
+          isShortMovies={isShortMovies}
+          savedMovies={true}
+          place={localStorage.savedMovies}
+          getMovies={getMovies}
+        />
+        {!notFound && isLoading ? (
           <Preloader />
         ) : (
-          <MoviesCardList cardLikeButtonClassName="element__like element__disabled" />
+          <MoviesCardList
+            path="savedMovies"
+            deleteMovie={deleteMovie}
+            notFound={notFound}
+            isNumberOfMoviesToRender={showSavedMovies.length}
+            showMovies={showSavedMovies}
+            cardLikeButtonClassName="element__like element__disabled"
+          />
         )}
       </section>
       <Footer />
