@@ -389,7 +389,6 @@ function App() {
             isLoggedIn={isLoggedIn}
             isLoading={isLoading}
             handelOpenBurger={handelOpenBurger}
-            getSavedMovies={getSavedMovies}
             getMovies={handleSearchForMovies}
             handelChangeCheckbox={handelChangeCheckboxSavedMovies}
             showSavedMovies={showSavedMovies}

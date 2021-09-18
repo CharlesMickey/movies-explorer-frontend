@@ -18,11 +18,11 @@ function MoviesCard({
   function handelClick() {
     setIsLoading(true);
     if (path === "savedMovies") {
-      return deleteMovie(card._id);
+      return deleteMovie(card._id).finally(() => setIsLoading(false));
     } else if (movie) {
-      return deleteMovie(movie._id);
+      return deleteMovie(movie._id).finally(() => setIsLoading(false));
     } else {
-      return createMovie(card);
+      return createMovie(card).finally(() => setIsLoading(false));
     }
   }
   return (

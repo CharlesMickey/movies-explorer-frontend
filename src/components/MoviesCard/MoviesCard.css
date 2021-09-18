@@ -47,9 +47,6 @@
   height: 24px;
   margin-left: 20px;
 }
-.element__like_loading {
-  background: url(../../images/Loading.gif) center no-repeat;
-}
 
 .element__like_active {
   background-image: url(../../images/imgs_svg/like_active.svg);
@@ -57,6 +54,10 @@
 
 .element__disabled {
   background-image: url(../../images/imgs_svg/delete_film.svg);
+}
+
+.element__like_loading {
+  background: url(../../images/Loading.gif) center no-repeat;
 }
 
 .element__duration {

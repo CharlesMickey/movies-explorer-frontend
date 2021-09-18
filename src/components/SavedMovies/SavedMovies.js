@@ -11,7 +11,6 @@ function SavedMovies({
   handelChangeCheckbox,
   isShortMovies,
   getMovies,
-  getSavedMovies,
   notFound,
   isLoading,
   isLoggedIn,
