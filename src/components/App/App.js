@@ -298,11 +298,13 @@ function App() {
   function deleteMovie(movieId) {
     return MainApi.deleteMovie(movieId)
       .then(() => {
-        const movies = isAllSavedMovies.filter((movie) => movie._id !== movieId);
-        setAllSavedMovies(movies)
-        localStorage.setItem("savedMovies", JSON.stringify(movies));
+        const movies = showSavedMovies.filter((movie) => movie._id !== movieId);
+        const savedMovies = isAllSavedMovies.filter(
+          (movie) => movie._id !== movieId
+        );
+        setAllSavedMovies(savedMovies);
+        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
         setShowSavedMovies(movies);
-
       })
       .catch((err) => {
         getMessageForUser(err);
@@ -314,9 +316,11 @@ function App() {
   function createMovie(movie) {
     return MainApi.createMovie(movie)
       .then((movie) => {
-        setAllSavedMovies([movie, ...isAllSavedMovies])
-        localStorage.setItem("savedMovies", JSON.stringify([movie, ...isAllSavedMovies]));
-        setShowSavedMovies([movie, ...showSavedMovies]);
+        setAllSavedMovies([movie, ...isAllSavedMovies]);
+        localStorage.setItem(
+          "savedMovies",
+          JSON.stringify([movie, ...isAllSavedMovies])
+        );
       })
       .catch((err) => {
         getMessageForUser(err);
