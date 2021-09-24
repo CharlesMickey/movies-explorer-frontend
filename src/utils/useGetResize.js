@@ -1,6 +1,6 @@
 import React from "react";
 
-function GetResize() {
+function useGetResize() {
   const [width, setWidth] = React.useState(window.innerWidth);
 
   React.useEffect(() => {
@@ -15,4 +15,4 @@ function GetResize() {
   return width;
 }
 
-export default GetResize;
+export default useGetResize;

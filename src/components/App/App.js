@@ -16,14 +16,14 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import filterMovies from "../../utils/filterMovies";
 import { BASE_URL } from "../../utils/constants";
-import GetResize from "../../utils/GetResize";
+import useGetResize from "../../utils/useGetResize";
 import getNumberMoviesRender from "../../utils/getNumberMoviesRender";
 import showErrorMsg from "../../utils/showErrorMsg";
 import { MESSAGE } from "../../utils/constants";
 
 function App() {
   const history = useHistory();
-  let width = GetResize();
+  let width = useGetResize();
   const [isLoggedIn, setIsLoggedIn] = React.useState(undefined);
   const [isOpenBurger, setIsOpenBurger] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
@@ -67,8 +67,8 @@ function App() {
     if (isLoggedIn) {
       return MainApi.getSavedMovies()
         .then((res) => {
-          const movies = res.map((movie) => {
-            return { ...movie };
+          const movies = res.filter((movie) => {
+            return movie.owner === currentUser._id;
           });
           setAllSavedMovies(movies);
           localStorage.setItem("savedMovies", JSON.stringify(movies));
@@ -77,7 +77,7 @@ function App() {
           console.log(`${err}`);
         });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, currentUser]);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -196,23 +196,6 @@ function App() {
     }
   }, [isLoggedIn]);
 
-  function getSavedMovies() {
-    setIsLoading(true);
-    return MainApi.getSavedMovies()
-      .then((res) => {
-        const movies = res.map((movie) => {
-          return { ...movie };
-        });
-        setAllSavedMovies(movies);
-        localStorage.setItem("savedMovies", JSON.stringify(movies));
-      })
-      .catch((err) => {
-        getMessageForUser(err);
-        console.log(`${err}`);
-      })
-      .finally(() => setIsLoading(false));
-  }
-
   function notFoundMovies(filteredMovies) {
     if (!filteredMovies.length) {
       setIsNotFound(true);
@@ -315,9 +298,11 @@ function App() {
   function deleteMovie(movieId) {
     return MainApi.deleteMovie(movieId)
       .then(() => {
-        const movies = showSavedMovies.filter((movie) => movie._id !== movieId);
+        const movies = isAllSavedMovies.filter((movie) => movie._id !== movieId);
+        setAllSavedMovies(movies)
+        localStorage.setItem("savedMovies", JSON.stringify(movies));
         setShowSavedMovies(movies);
-        getSavedMovies();
+
       })
       .catch((err) => {
         getMessageForUser(err);
@@ -329,7 +314,8 @@ function App() {
   function createMovie(movie) {
     return MainApi.createMovie(movie)
       .then((movie) => {
-        getSavedMovies();
+        setAllSavedMovies([movie, ...isAllSavedMovies])
+        localStorage.setItem("savedMovies", JSON.stringify([movie, ...isAllSavedMovies]));
         setShowSavedMovies([movie, ...showSavedMovies]);
       })
       .catch((err) => {

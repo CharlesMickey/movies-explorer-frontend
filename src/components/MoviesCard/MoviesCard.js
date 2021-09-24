@@ -15,7 +15,7 @@ function MoviesCard({
       ? isAllSavedMovies.find((movie) => movie.movieId === card.movieId)
       : false;
 
-  function handelClick() {
+   function handelClick() {
     setIsLoading(true);
     if (path === "savedMovies") {
       return deleteMovie(card._id).finally(() => setIsLoading(false));
